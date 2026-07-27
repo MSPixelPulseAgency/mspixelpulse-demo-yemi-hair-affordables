@@ -1,5 +1,5 @@
-import { createElement } from "react";
-import { ArrowRight, CircleDollarSign, Globe2, HandHeart, Scissors, SlidersHorizontal, Sparkles } from "lucide-react";
+import { createElement, useEffect, useRef, useState } from "react";
+import { ArrowRight, CircleDollarSign, Globe2, HandHeart, Pause, Play, SlidersHorizontal, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import Seo from "../components/Seo";
 import ProductCard from "../components/ProductCard";
@@ -25,16 +25,80 @@ const benefits = [
   [Globe2, "Canada & Nigeria pricing", "Switch between separate CAD and NGN prices at any time."]
 ];
 
-const editorialLooks = [
-  ["/images/editorial/natural-hair-dark.webp", "Natural volume", "/collections/curly-hair"],
-  ["/images/editorial/afro-portrait.webp", "Soft afro texture", "/collections/curly-hair"],
-  ["/images/editorial/nigerian-natural-hair.webp", "Silky natural finish", "/collections/straight-hair"],
-  ["/images/editorial/nigerian-afro.webp", "Statement shape", "/collections/bob-wigs"],
-  ["/images/products/long-straight-08.webp", "Polished length", "/collections/straight-hair"],
-  ["/images/products/deep-wave-curly-01.webp", "Defined wave", "/collections/curly-hair"],
-  ["/images/products/short-natural-06.webp", "Everyday bob", "/collections/bob-wigs"],
-  ["/images/editorial/braided-hair.webp", "Copper braids", "/custom-order"]
+const videoLooks = [
+  {
+    src: "/videos/afro-outdoors.mp4",
+    poster: "/images/video-posters/afro-outdoors.webp",
+    eyebrow: "Natural volume",
+    title: "A shape that owns the frame",
+    text: "A rounded, confident silhouette for customers who love visible volume.",
+    href: "/collections/curly-hair",
+    cta: "Shop textured hair",
+    label: "Black woman wearing a rounded afro outdoors"
+  },
+  {
+    src: "/videos/natural-curl-care.mp4",
+    poster: "/images/video-posters/natural-curl-care.webp",
+    eyebrow: "Curl care",
+    title: "Let the texture keep its shape",
+    text: "Use this soft, full finish as inspiration for a custom curl pattern.",
+    href: "/collections/curly-hair",
+    cta: "Explore curls",
+    label: "Black woman refreshing her natural curls"
+  },
+  {
+    src: "/videos/natural-hair-portrait.mp4",
+    poster: "/images/video-posters/natural-hair-portrait.webp",
+    eyebrow: "Soft texture",
+    title: "Movement makes the difference",
+    text: "See the finish from every angle before choosing the closest collection.",
+    href: "/collections",
+    cta: "Browse collections",
+    label: "Black woman styling her natural hair in an editorial portrait"
+  }
 ];
+
+function LoopingVideo({ src, poster, label }) {
+  const videoRef = useRef(null);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      videoRef.current?.pause();
+    }
+  }, []);
+
+  const togglePlayback = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+  };
+
+  return (
+    <>
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster={poster}
+        aria-label={label}
+        onPause={() => setPaused(true)}
+        onPlay={() => setPaused(false)}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+      <button className="video-toggle" type="button" onClick={togglePlayback} aria-label={`${paused ? "Play" : "Pause"} video: ${label}`}>
+        {paused ? <Play size={16} fill="currentColor" /> : <Pause size={16} fill="currentColor" />}
+      </button>
+    </>
+  );
+}
 
 export default function HomePage() {
   const { currency } = useStore();
@@ -67,9 +131,28 @@ export default function HomePage() {
             <div className="hero__trust"><span><Sparkles size={16} /> Curated textures and lengths</span><span><Globe2 size={16} /> NGN prices · CAD switch</span></div>
           </div>
           <div className="hero__visual">
-            <div className="hero__image hero__image--main"><img src="/images/editorial/nigerian-natural-hair.webp" alt="Black woman wearing a smooth natural hairstyle" width="760" height="960" /></div>
+            <div className="hero__image hero__image--main"><LoopingVideo src="/videos/wig-styling.mp4" poster="/images/video-posters/wig-styling.webp" label="Black woman fitting and styling a smooth fringe wig" /></div>
             <div className="hero__image hero__image--small"><img src="/images/editorial/afro-portrait.webp" alt="Black woman wearing a full natural afro" width="480" height="600" /></div>
             <div className="hero__floating"><span>From</span><strong>{formatMoney(currency === "NGN" ? heroProduct.priceNGN : heroProduct.priceCAD, currency)}</strong><small>{currency} catalogue price</small><Link to="/shop/classic-short-bob-wig">View classic bob <ArrowRight size={14} /></Link></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section video-showcase">
+        <div className="container">
+          <SectionHeading eyebrow="Hair in motion" title="See the texture, shape and finish" text="Short inspiration reels make it easier to compare movement before you choose a style or send a custom request." action={<Link className="text-link" to="/custom-order">Request a similar look <ArrowRight size={16} /></Link>} />
+          <div className="video-grid">
+            {videoLooks.map((video, index) => (
+              <article className={`video-card ${index === 0 ? "video-card--wide" : ""}`} key={video.src}>
+                <div className="video-card__media"><LoopingVideo src={video.src} poster={video.poster} label={video.label} /></div>
+                <div className="video-card__content">
+                  <p className="eyebrow">{video.eyebrow}</p>
+                  <h3>{video.title}</h3>
+                  <p>{video.text}</p>
+                  <Link className="text-link" to={video.href}>{video.cta} <ArrowRight size={15} /></Link>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -142,13 +225,6 @@ export default function HomePage() {
             <div><p className="eyebrow">Made for your everyday</p><h2>Real texture. Real presence. Your own finish.</h2><p>Explore shapes that celebrate natural volume, polished lengths and the confidence to change your look when you choose.</p><Link className="button button--light" to="/collections">Explore collections <ArrowRight size={18} /></Link></div>
             <div className="editorial-story__images"><img src="/images/editorial/natural-hair-dark.webp" alt="Black woman with full natural hair against a dark background" loading="lazy" width="520" height="680" /><img src="/images/editorial/nigerian-afro.webp" alt="Nigerian woman wearing a rounded natural afro" loading="lazy" width="520" height="680" /><img src="/images/editorial/natural-hair-blue.webp" alt="Black woman with natural hair in an editorial portrait" loading="lazy" width="520" height="680" /></div>
           </div>
-        </div>
-      </section>
-
-      <section className="section social-gallery">
-        <div className="container">
-          <SectionHeading eyebrow="Hair inspiration" title="Looks made to be noticed" text="Browse polished lengths, soft curls and natural textures worn by Black women." action={<Link className="text-link" to="/shop">Shop every style <ArrowRight size={16} /></Link>} />
-          <div className="social-grid">{editorialLooks.map(([source, label, href]) => <Link key={`${source}-${label}`} to={href}><img src={source} alt={`Black woman wearing ${label.toLowerCase()}`} loading="lazy" width="420" height="420" /><span><Scissors size={18} /> {label}</span></Link>)}</div>
         </div>
       </section>
 

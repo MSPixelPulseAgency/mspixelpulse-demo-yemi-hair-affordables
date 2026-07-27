@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { Eye, Heart, ShoppingBag, X } from "lucide-react";
+import { Eye, Heart, ShoppingBag, SlidersHorizontal, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useStore } from "../context/StoreContext";
 import { useFocusTrap } from "../hooks/useFocusTrap";
@@ -31,9 +31,15 @@ export default function ProductCard({ product }) {
           <Rating rating={product.rating} count={product.reviewCount} />
           <Price product={product} />
           <p className="product-card__lengths">{product.availableLengths.join(" · ")}</p>
-          <button type="button" className="button button--outline button--full" onClick={() => addToCart(product)}>
-            <ShoppingBag size={18} /> {product.availableLengths.length > 1 ? "Choose options" : "Add to cart"}
-          </button>
+          {product.availableLengths.length > 1 ? (
+            <Link className="button button--outline button--full" to={`/shop/${product.slug}`}>
+              <SlidersHorizontal size={18} /> View options
+            </Link>
+          ) : (
+            <button type="button" className="button button--outline button--full" onClick={() => addToCart(product)}>
+              <ShoppingBag size={18} /> Add to cart
+            </button>
+          )}
         </div>
       </article>
       {quickOpen ? (

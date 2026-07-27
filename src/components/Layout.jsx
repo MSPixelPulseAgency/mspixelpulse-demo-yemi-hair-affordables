@@ -33,6 +33,19 @@ function CurrencySwitcher({ compact = false }) {
   );
 }
 
+function MobileCurrencySwitcher() {
+  const { currency, setCurrency } = useStore();
+  return (
+    <div className="mobile-currency" role="group" aria-label="Display currency">
+      <span>Prices in</span>
+      <div className="mobile-currency__options">
+        <button className={currency === "NGN" ? "is-active" : ""} type="button" onClick={() => setCurrency("NGN")} aria-pressed={currency === "NGN"}>₦ NGN</button>
+        <button className={currency === "CAD" ? "is-active" : ""} type="button" onClick={() => setCurrency("CAD")} aria-pressed={currency === "CAD"}>$ CAD</button>
+      </div>
+    </div>
+  );
+}
+
 function SearchOverlay({ open, onClose }) {
   const [query, setQuery] = useState("");
   const ref = useRef(null);
@@ -128,6 +141,7 @@ function Header() {
             <button className="icon-button cart-button" type="button" onClick={() => setMiniCartOpen(true)} aria-label={`Open cart with ${cartCount} items`}><ShoppingBag /><span>{cartCount}</span></button>
           </div>
         </div>
+        <MobileCurrencySwitcher />
       </header>
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />

@@ -80,7 +80,7 @@ function MobileMenu({ open, onClose }) {
       <aside ref={ref} role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
         <div className="drawer__top"><Brand /><button className="icon-button" type="button" onClick={onClose} aria-label="Close menu"><X /></button></div>
         <h2 className="sr-only" id="mobile-menu-title">Site menu</h2>
-        <nav className="mobile-nav" aria-label="Mobile navigation">
+        <nav className="mobile-nav" aria-label="Site navigation">
           {nav.map(([label, path]) => <NavLink key={path} to={path} onClick={onClose}>{label}</NavLink>)}
         </nav>
         <div className="drawer__footer"><CurrencySwitcher /><p>{businessConfig.locationNote}</p></div>
@@ -123,17 +123,23 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { cartCount, setMiniCartOpen, wishlist } = useStore();
+  const { pathname } = useLocation();
+  const showMobileCurrency = pathname === "/"
+    || pathname.startsWith("/shop")
+    || pathname.startsWith("/collections")
+    || pathname === "/custom-order"
+    || pathname === "/cart"
+    || pathname === "/checkout";
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <div className="announcement"><p>Beautiful hair. Fair prices. <span>Prices shown in naira by default—switch to CAD anytime.</span></p></div>
       <header className="site-header">
         <div className="site-header__inner container">
-          <button className="icon-button mobile-only" type="button" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Menu /></button>
+          <div className="header-menu">
+            <button className="menu-trigger" type="button" onClick={() => setMenuOpen(true)} aria-label="Open site menu"><Menu size={20} /><span>Menu</span></button>
+          </div>
           <Brand />
-          <nav className="desktop-nav" aria-label="Main navigation">
-            {nav.slice(0, 5).map(([label, path]) => <NavLink key={path} to={path}>{label}</NavLink>)}
-          </nav>
           <div className="header-actions">
             <CurrencySwitcher compact />
             <button className="icon-button" type="button" onClick={() => setSearchOpen(true)} aria-label="Search products"><Search /></button>
@@ -141,7 +147,7 @@ function Header() {
             <button className="icon-button cart-button" type="button" onClick={() => setMiniCartOpen(true)} aria-label={`Open cart with ${cartCount} items`}><ShoppingBag /><span>{cartCount}</span></button>
           </div>
         </div>
-        <MobileCurrencySwitcher />
+        {showMobileCurrency ? <MobileCurrencySwitcher /> : null}
       </header>
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
@@ -158,12 +164,14 @@ function Footer() {
     businessConfig.whatsappNumber ? [`https://wa.me/${businessConfig.whatsappNumber.replace(/\D/g, "")}`, "WhatsApp", MessageCircle] : null
   ].filter(Boolean);
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id="site-footer">
       <div className="container footer-grid">
         <div className="footer-brand"><Brand /><p>Beautiful hair selected with care by Rosaline. Premium feeling, fair pricing and personal guidance.</p>{socialLinks.length ? <div className="socials">{socialLinks.map(([href, label, Icon]) => <a href={href} aria-label={label} key={label} target="_blank" rel="noreferrer"><Icon /></a>)}</div> : null}</div>
-        <div><h2>Shop</h2><Link to="/shop">All hair</Link><Link to="/collections/bob-wigs">Bob wigs</Link><Link to="/collections/curly-hair">Curly hair</Link><Link to="/collections/straight-hair">Straight hair</Link><Link to="/custom-order">Custom order</Link></div>
-        <div><h2>Customer care</h2><Link to="/hair-guide">Hair guide</Link><Link to="/faq">FAQs</Link><Link to="/contact">Contact</Link><Link to="/shipping-returns">Shipping & returns</Link><Link to="/cart">Cart</Link></div>
-        <div><h2>Policies</h2><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link>{businessConfig.email || businessConfig.phone ? <p>{businessConfig.email}{businessConfig.email && businessConfig.phone ? <br /> : null}{businessConfig.phone}</p> : null}<p>Prices are shown in NGN by default. Switch to CAD anytime; order details are confirmed before fulfilment.</p></div>
+        <nav className="footer-links" aria-label="Footer navigation">
+          <div><h2>Shop</h2><Link to="/shop">All hair</Link><Link to="/collections/bob-wigs">Bob wigs</Link><Link to="/collections/curly-hair">Curly hair</Link><Link to="/collections/straight-hair">Straight hair</Link><Link to="/custom-order">Custom order</Link></div>
+          <div><h2>Customer care</h2><Link to="/hair-guide">Hair guide</Link><Link to="/faq">FAQs</Link><Link to="/contact">Contact</Link><Link to="/shipping-returns">Shipping & returns</Link><Link to="/cart">Cart</Link></div>
+          <div><h2>Policies</h2><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link>{businessConfig.email || businessConfig.phone ? <p>{businessConfig.email}{businessConfig.email && businessConfig.phone ? <br /> : null}{businessConfig.phone}</p> : null}<p>Prices are shown in NGN by default. Switch to CAD anytime; order details are confirmed before fulfilment.</p></div>
+        </nav>
       </div>
       <div className="container footer-bottom"><p>© {year} Yemi Hair Affordables. All rights reserved.</p><p>Nigeria · Canada · Selected international locations</p></div>
     </footer>

@@ -18,22 +18,22 @@ export default function OrderSuccessPage() {
   const whatsappHref = order && businessConfig.whatsappNumber ? `https://wa.me/${businessConfig.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent(order.message)}` : "";
   return (
     <>
-      <Seo title="Order Request Received" description="Your Yemi Hair Affordables demo order request has been created." path="/order-success" />
+      <Seo title="Order Summary Ready" description="Your Yemi Hair Affordables order summary is ready to review and share." path="/order-success" />
       <section className="success-page container">
         <div className="success-page__icon"><CheckCircle2 /></div>
-        <p className="eyebrow">Request saved on this device</p>
-        <h1>Thank you—your look is one step closer.</h1>
+        <p className="eyebrow">Summary saved on this device</p>
+        <h1>Your order summary is ready.</h1>
         {order ? (
           <>
-            <p>Your demo reference is <strong>{order.reference}</strong>. Keep it with your order summary when contacting the business.</p>
+            <p>Your reference is <strong>{order.reference}</strong>. Copy the summary below and share it through Yemi Hair’s confirmed contact channel.</p>
             <div className="success-card">
-              <div><span>Reference</span><strong>{order.reference}</strong></div><div><span>Demo total</span><strong>{formatMoney(order.total, order.currency)}</strong></div><div><span>Status</span><strong>Awaiting confirmation</strong></div>
+              <div><span>Reference</span><strong>{order.reference}</strong></div><div><span>Items subtotal</span><strong>{formatMoney(order.total, order.currency)}</strong></div><div><span>Status</span><strong>Ready to share</strong></div>
               <pre>{order.message}</pre>
               <div className="success-card__actions"><button className="button button--ghost" type="button" onClick={copy}><Clipboard size={18} /> Copy summary</button>{whatsappHref ? <a className="button button--whatsapp" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Send on WhatsApp</a> : <Link className="button button--ghost" to="/contact"><MessageCircle size={18} /> Contact Rosaline</Link>}</div>
             </div>
-            {!businessConfig.whatsappNumber ? <p className="demo-notice"><strong>WhatsApp not live yet:</strong> Add the confirmed business number to the environment settings to enable one-tap handoff.</p> : null}
+            {!businessConfig.whatsappNumber ? <p className="order-notice"><strong>Next step:</strong> Copy this summary and share it through the contact channel provided by Yemi Hair Affordables. Your order is not confirmed until you receive a reply.</p> : null}
           </>
-        ) : <p>No recent demo request was found on this device. You can start again from the shop.</p>}
+        ) : <p>No recent order summary was found on this device. You can start again from the shop.</p>}
         <div className="success-page__footer"><Link className="button button--primary" to="/shop"><ShoppingBag size={18} /> Continue shopping</Link><Link className="text-link" to="/hair-guide">Read the hair guide</Link></div>
       </section>
     </>

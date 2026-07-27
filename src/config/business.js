@@ -2,20 +2,19 @@ export const businessConfig = {
   name: "Yemi Hair Affordables",
   owner: "Rosaline",
   tagline: "Beautiful hair. Fair prices.",
-  email: "hello@mspixelpulse.com",
-  phone: "+1 (000) 000-0000",
+  email: import.meta.env.VITE_BUSINESS_EMAIL || "",
+  phone: import.meta.env.VITE_BUSINESS_PHONE || "",
   whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || "",
-  instagram: "#",
-  tiktok: "#",
-  facebook: "#",
+  instagram: import.meta.env.VITE_INSTAGRAM_URL || "",
+  tiktok: import.meta.env.VITE_TIKTOK_URL || "",
+  facebook: import.meta.env.VITE_FACEBOOK_URL || "",
   locationNote: "Serving customers in Canada, Nigeria and selected international locations.",
-  defaultCurrency: "CAD",
-  supportedCurrencies: ["CAD", "NGN"],
+  defaultCurrency: "NGN",
+  supportedCurrencies: ["NGN", "CAD"],
   orderEmailEnabled: import.meta.env.VITE_ENABLE_EMAIL_ORDERS === "true",
   whatsappOrdersEnabled: import.meta.env.VITE_ENABLE_WHATSAPP_ORDERS !== "false",
-  siteUrl: import.meta.env.VITE_SITE_URL || "https://mspixelpulse-demo-yemi-hair-afforda.vercel.app",
-  orderEmailEndpoint: import.meta.env.VITE_ORDER_EMAIL_ENDPOINT || "",
-  notice: "All product names, prices, availability, reviews and shipping estimates are demo content and must be confirmed by Rosaline before launch."
+  siteUrl: import.meta.env.VITE_SITE_URL || "https://yemi-hair.vercel.app",
+  orderEmailEndpoint: import.meta.env.VITE_ORDER_EMAIL_ENDPOINT || ""
 };
 
 export const formatMoney = (amount, currency) =>

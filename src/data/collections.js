@@ -6,5 +6,5 @@ export const collections = [
   { slug: "headband-wigs", name: "Headband Wigs", description: "Quick, comfortable styles with no lace to blend.", image: "/images/products/headband-long-09.webp" },
   { slug: "lace-wigs", name: "Closure & Frontal", description: "Flexible lace options for your preferred finish.", image: "/images/products/lace-straight-14.webp" },
   { slug: "new-arrivals", name: "New Arrivals", description: "Fresh textures and silhouettes added to the edit.", image: "/images/products/fringe-bob-10.webp" },
-  { slug: "best-sellers", name: "Best Sellers", description: "Demo favourites customers return to first.", image: "/images/products/body-wave-11.webp" }
+  { slug: "best-sellers", name: "Featured Favourites", description: "Versatile styles selected for easy, confident wear.", image: "/images/products/body-wave-11.webp" }
 ];

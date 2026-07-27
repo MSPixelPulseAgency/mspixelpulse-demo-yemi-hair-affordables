@@ -1,13 +1,13 @@
-import { createElement, useState } from "react";
+import { createElement } from "react";
 import { ArrowRight, CircleDollarSign, Globe2, HandHeart, Scissors, SlidersHorizontal, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import Seo from "../components/Seo";
 import ProductCard from "../components/ProductCard";
-import { DemoNotice, Reveal, SectionHeading } from "../components/common";
+import { OrderNotice, Reveal, SectionHeading } from "../components/common";
 import { collections } from "../data/collections";
 import { products } from "../data/products";
-import { reviews } from "../data/reviews";
-import { businessConfig } from "../config/business";
+import { businessConfig, formatMoney } from "../config/business";
+import { useStore } from "../context/StoreContext";
 
 const textureCards = [
   ["Silky Straight", "/images/products/long-straight-08.webp"],
@@ -19,44 +19,34 @@ const textureCards = [
 ];
 
 const benefits = [
-  [CircleDollarSign, "Beautiful, affordable styles", "Premium feeling choices with demo prices shown clearly."],
+  [CircleDollarSign, "Beautiful, affordable styles", "Clear prices and considered choices for everyday confidence."],
   [Sparkles, "Carefully selected hair", "A considered edit of textures, lengths and finishes."],
   [HandHeart, "Custom order support", "Personal guidance when the exact style is not in the shop."],
   [Globe2, "Canada & Nigeria pricing", "Switch between separate CAD and NGN prices at any time."]
 ];
 
-function Newsletter() {
-  const [values, setValues] = useState({ firstName: "", email: "" });
-  const [message, setMessage] = useState("");
-  const submit = (event) => {
-    event.preventDefault();
-    if (!/^\S+@\S+\.\S+$/.test(values.email)) {
-      setMessage("Enter a valid email address to join the demo list.");
-      return;
-    }
-    setMessage("You’re on the demo list. Live email delivery will be connected before launch.");
-    setValues({ firstName: "", email: "" });
-  };
-  return (
-    <form className="newsletter__form" onSubmit={submit} noValidate>
-      <label><span>First name <small>(optional)</small></span><input value={values.firstName} onChange={(event) => setValues({ ...values, firstName: event.target.value })} autoComplete="given-name" /></label>
-      <label><span>Email address</span><input type="email" required value={values.email} onChange={(event) => setValues({ ...values, email: event.target.value })} autoComplete="email" aria-describedby="newsletter-status" /></label>
-      <button className="button button--dark" type="submit">Join the list</button>
-      <p className="newsletter__consent">By joining, you agree to receive occasional demo updates. Unsubscribe anytime.</p>
-      <p id="newsletter-status" role="status">{message}</p>
-    </form>
-  );
-}
+const editorialLooks = [
+  ["/images/editorial/natural-hair-dark.webp", "Natural volume", "/collections/curly-hair"],
+  ["/images/editorial/afro-portrait.webp", "Soft afro texture", "/collections/curly-hair"],
+  ["/images/editorial/nigerian-natural-hair.webp", "Silky natural finish", "/collections/straight-hair"],
+  ["/images/editorial/nigerian-afro.webp", "Statement shape", "/collections/bob-wigs"],
+  ["/images/products/long-straight-08.webp", "Polished length", "/collections/straight-hair"],
+  ["/images/products/deep-wave-curly-01.webp", "Defined wave", "/collections/curly-hair"],
+  ["/images/products/short-natural-06.webp", "Everyday bob", "/collections/bob-wigs"],
+  ["/images/editorial/braided-hair.webp", "Copper braids", "/custom-order"]
+];
 
 export default function HomePage() {
+  const { currency } = useStore();
   const featured = products.filter((product) => product.featured).slice(0, 8);
+  const heroProduct = products[0];
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: businessConfig.name,
     description: businessConfig.tagline,
     url: businessConfig.siteUrl,
-    email: businessConfig.email,
+    ...(businessConfig.email ? { email: businessConfig.email } : {}),
     areaServed: ["Canada", "Nigeria"]
   };
   return (
@@ -74,12 +64,12 @@ export default function HomePage() {
             <h1>Your perfect hair, <em>without the luxury markup.</em></h1>
             <p>Shop beautiful wigs and human-hair styles selected to help you look confident, polished and effortlessly you.</p>
             <div className="hero__actions"><Link className="button button--primary" to="/shop">Shop hair <ArrowRight size={18} /></Link><Link className="button button--ghost" to="/custom-order">Place a custom order</Link></div>
-            <div className="hero__trust"><span><Sparkles size={16} /> Demo-safe product edit</span><span><Globe2 size={16} /> Canada & Nigeria welcome</span></div>
+            <div className="hero__trust"><span><Sparkles size={16} /> Curated textures and lengths</span><span><Globe2 size={16} /> NGN prices · CAD switch</span></div>
           </div>
           <div className="hero__visual">
-            <div className="hero__image hero__image--main"><img src="/images/products/long-straight-08.webp" alt="Woman wearing a long straight hairstyle, shown as a demo style reference" width="760" height="960" /></div>
-            <div className="hero__image hero__image--small"><img src="/images/products/deep-wave-curly-01.webp" alt="Woman with deep curly hair, shown as a demo texture reference" width="480" height="600" /></div>
-            <div className="hero__floating"><span>From</span><strong>$89 CAD</strong><small>demo pricing</small><Link to="/shop/classic-short-bob-wig">View classic bob <ArrowRight size={14} /></Link></div>
+            <div className="hero__image hero__image--main"><img src="/images/editorial/nigerian-natural-hair.webp" alt="Black woman wearing a smooth natural hairstyle" width="760" height="960" /></div>
+            <div className="hero__image hero__image--small"><img src="/images/editorial/afro-portrait.webp" alt="Black woman wearing a full natural afro" width="480" height="600" /></div>
+            <div className="hero__floating"><span>From</span><strong>{formatMoney(currency === "NGN" ? heroProduct.priceNGN : heroProduct.priceCAD, currency)}</strong><small>{currency} catalogue price</small><Link to="/shop/classic-short-bob-wig">View classic bob <ArrowRight size={14} /></Link></div>
           </div>
         </div>
       </section>
@@ -91,7 +81,7 @@ export default function HomePage() {
             {collections.map((collection) => (
               <Reveal key={collection.slug}>
                 <Link className="category-card" to={`/collections/${collection.slug}`}>
-                  <img src={collection.image} alt={`${collection.name} demo collection`} loading="lazy" width="480" height="620" />
+                  <img src={collection.image} alt={`${collection.name} collection`} loading="lazy" width="480" height="620" />
                   <span className="category-card__overlay"><small>{collection.description}</small><strong>{collection.name}</strong><em>Explore <ArrowRight size={16} /></em></span>
                 </Link>
               </Reveal>
@@ -102,15 +92,15 @@ export default function HomePage() {
 
       <section className="section">
         <div className="container">
-          <SectionHeading eyebrow="The customer edit" title="Best-selling looks" text="Versatile silhouettes and textures chosen for easy confidence." action={<Link className="text-link" to="/shop?sort=best">Shop all hair <ArrowRight size={16} /></Link>} />
+          <SectionHeading eyebrow="The customer edit" title="Featured looks" text="Versatile silhouettes and textures chosen for easy confidence." action={<Link className="text-link" to="/shop">Shop all hair <ArrowRight size={16} /></Link>} />
           <div className="product-grid product-grid--four">{featured.map((product) => <ProductCard product={product} key={product.id} />)}</div>
-          <DemoNotice compact />
+          <OrderNotice compact />
         </div>
       </section>
 
       <Reveal>
         <section className="split-banner">
-          <div className="split-banner__image"><img src="/images/products/soft-wave-13.webp" alt="Model with soft wavy hair, shown as a demo everyday wig style" loading="lazy" width="900" height="800" /></div>
+          <div className="split-banner__image"><img src="/images/products/soft-wave-13.webp" alt="Black woman wearing soft, wavy hair" loading="lazy" width="900" height="800" /></div>
           <div className="split-banner__content"><p className="eyebrow">The everyday edit</p><h2>Soft, polished, everyday confidence.</h2><p>Easy-to-wear styles that look considered without making your morning complicated.</p><Link className="button button--light" to="/collections/everyday-wigs">Shop everyday wigs <ArrowRight size={18} /></Link></div>
         </section>
       </Reveal>
@@ -125,16 +115,16 @@ export default function HomePage() {
       <section className="section texture-section">
         <div className="container">
           <SectionHeading eyebrow="Choose your texture" title="Made to move like you do" text="Compare six popular finishes, then refine the length and lace on the product page." />
-          <div className="texture-grid">{textureCards.map(([name, source]) => <Link to={`/shop?search=${encodeURIComponent(name)}`} key={name}><img src={source} alt={`${name} demo hair texture`} loading="lazy" width="420" height="520" /><span>{name}<ArrowRight size={16} /></span></Link>)}</div>
+          <div className="texture-grid">{textureCards.map(([name, source]) => <Link to={`/shop?search=${encodeURIComponent(name)}`} key={name}><img src={source} alt={`${name} hair texture`} loading="lazy" width="420" height="520" /><span>{name}<ArrowRight size={16} /></span></Link>)}</div>
         </div>
       </section>
 
       <section className="section section--surface">
         <div className="container">
-          <SectionHeading eyebrow="Shop the look" title="An editorial view of everyday hair" text="Tap through to see the closest demo style in the collection." />
+          <SectionHeading eyebrow="Shop the look" title="An editorial view of everyday hair" text="Tap through to find the closest style in the collection." />
           <div className="look-grid">
-            <article className="look-card look-card--large"><img src="/images/products/lace-straight-14.webp" alt="Long straight lace hairstyle demo look" loading="lazy" width="800" height="980" /><span className="look-card__hotspot" aria-hidden="true"></span><div><p>Polished lengths</p><h3>HD Lace Straight Wig</h3><Link className="button button--light" to="/shop/hd-lace-straight-wig">Shop the look</Link></div></article>
-            <article className="look-card"><img src="/images/products/natural-curl-04.webp" alt="Soft natural curl hairstyle demo look" loading="lazy" width="800" height="980" /><span className="look-card__hotspot" aria-hidden="true"></span><div><p>Soft definition</p><h3>Water Wave Everyday Wig</h3><Link className="button button--light" to="/shop/water-wave-everyday-wig">Shop the look</Link></div></article>
+            <article className="look-card look-card--large"><img src="/images/products/lace-straight-14.webp" alt="Black woman wearing long straight lace hair" loading="lazy" width="800" height="980" /><span className="look-card__hotspot" aria-hidden="true"></span><div><p>Polished lengths</p><h3>HD Lace Straight Wig</h3><Link className="button button--light" to="/shop/hd-lace-straight-wig">Shop the look</Link></div></article>
+            <article className="look-card"><img src="/images/products/natural-curl-04.webp" alt="Black woman wearing soft natural curls" loading="lazy" width="800" height="980" /><span className="look-card__hotspot" aria-hidden="true"></span><div><p>Soft definition</p><h3>Water Wave Everyday Wig</h3><Link className="button button--light" to="/shop/water-wave-everyday-wig">Shop the look</Link></div></article>
           </div>
         </div>
       </section>
@@ -146,22 +136,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section section--dark reviews">
+      <section className="section section--dark editorial-story">
         <div className="container">
-          <SectionHeading eyebrow="Demo customer stories" title="Good hair days, shared" text="Sample review content to demonstrate the final experience. Replace with confirmed feedback before launch." />
-          <div className="reviews__track">{reviews.map((review) => <article className="review-card" key={review.id}><div className="review-card__stars" aria-label={`${review.rating} stars`}>★★★★★</div><blockquote>“{review.text}”</blockquote><p><strong>{review.name}</strong><span>{review.location} · {review.product}</span></p><small>Demo review</small></article>)}</div>
+          <div className="editorial-story__grid">
+            <div><p className="eyebrow">Made for your everyday</p><h2>Real texture. Real presence. Your own finish.</h2><p>Explore shapes that celebrate natural volume, polished lengths and the confidence to change your look when you choose.</p><Link className="button button--light" to="/collections">Explore collections <ArrowRight size={18} /></Link></div>
+            <div className="editorial-story__images"><img src="/images/editorial/natural-hair-dark.webp" alt="Black woman with full natural hair against a dark background" loading="lazy" width="520" height="680" /><img src="/images/editorial/nigerian-afro.webp" alt="Nigerian woman wearing a rounded natural afro" loading="lazy" width="520" height="680" /><img src="/images/editorial/natural-hair-blue.webp" alt="Black woman with natural hair in an editorial portrait" loading="lazy" width="520" height="680" /></div>
+          </div>
         </div>
       </section>
 
       <section className="section social-gallery">
         <div className="container">
-          <SectionHeading eyebrow="Follow the mood" title="Our latest looks" text="A curated demo feed—not connected to a live social account." action={<a className="text-link" href={businessConfig.instagram}>Instagram placeholder <ArrowRight size={16} /></a>} />
-          <div className="social-grid">{products.slice(1, 9).map((product) => <Link key={product.id} to={`/shop/${product.slug}`}><img src={product.images[0]} alt={`${product.shortName} social gallery demo`} loading="lazy" width="420" height="420" /><span><Scissors size={18} /> View style</span></Link>)}</div>
+          <SectionHeading eyebrow="Hair inspiration" title="Looks made to be noticed" text="Browse polished lengths, soft curls and natural textures worn by Black women." action={<Link className="text-link" to="/shop">Shop every style <ArrowRight size={16} /></Link>} />
+          <div className="social-grid">{editorialLooks.map(([source, label, href]) => <Link key={`${source}-${label}`} to={href}><img src={source} alt={`Black woman wearing ${label.toLowerCase()}`} loading="lazy" width="420" height="420" /><span><Scissors size={18} /> {label}</span></Link>)}</div>
         </div>
       </section>
 
       <section className="newsletter">
-        <div className="container newsletter__grid"><div><p className="eyebrow">Stay in the loop</p><h2>New drops, restocks and hair tips.</h2><p>Join the demo early-access list for style notes and first looks.</p></div><Newsletter /></div>
+        <div className="container newsletter__grid"><div><p className="eyebrow">Need a closer match?</p><h2>Tell Rosaline exactly what you want.</h2><p>Share the texture, length, colour, lace preference, budget and destination in one guided request.</p></div><div className="newsletter__actions"><Link className="button button--dark" to="/custom-order">Start a custom order <ArrowRight size={18} /></Link><Link className="button button--ghost" to="/hair-guide">Read the hair guide</Link></div></div>
       </section>
     </>
   );

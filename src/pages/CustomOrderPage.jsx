@@ -2,14 +2,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ImagePlus, Sparkles, Upload, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Seo from "../components/Seo";
-import { DemoNotice, Field } from "../components/common";
+import { Field, OrderNotice } from "../components/common";
 import { createOrderReference } from "../services/orderService";
 import { useStore } from "../context/StoreContext";
 
 const steps = ["Hair type", "Style", "Specifications", "Inspiration", "Delivery", "Review"];
 const initial = {
   hairType: "", style: "", length: "16 inches", colour: "Natural black", lace: "Not sure", density: "180%",
-  capSize: "Medium", glueless: "Yes", budgetCurrency: "CAD", budget: "", country: "Canada", city: "",
+  capSize: "Medium", glueless: "Yes", budgetCurrency: "NGN", budget: "", country: "Nigeria", city: "",
   neededBy: "", delivery: "Delivery", firstName: "", lastName: "", email: "", phone: "", notes: ""
 };
 
@@ -66,7 +66,7 @@ export default function CustomOrderPage() {
   const submit = () => {
     if (!canAdvance) return next();
     const reference = createOrderReference().replace("YHA", "YHA-CUSTOM");
-    const customOrder = { reference, createdAt: new Date().toISOString(), values, files: files.map((file) => file.name), status: "Demo custom request" };
+    const customOrder = { reference, createdAt: new Date().toISOString(), values, files: files.map((file) => file.name), status: "Custom order summary created" };
     localStorage.setItem("yha-latest-custom-order", JSON.stringify(customOrder));
     localStorage.removeItem("yha-custom-draft");
     setToast(`Custom request ${reference} saved.`);
@@ -75,8 +75,8 @@ export default function CustomOrderPage() {
 
   return (
     <>
-      <Seo title="Custom Hair Order" description="Build a custom Yemi Hair Affordables demo request by choosing hair type, style, length, lace, density, cap size, budget and delivery details." path="/custom-order" />
-      <header className="custom-hero"><div className="container"><p className="eyebrow">Guided by Rosaline</p><h1>Your idea, shaped into the right hair.</h1><p>Tell us what you love. This six-step demo request keeps every important detail together.</p></div></header>
+      <Seo title="Custom Hair Order" description="Build a custom Yemi Hair Affordables request by choosing hair type, style, length, lace, density, cap size, budget and delivery details." path="/custom-order" />
+      <header className="custom-hero"><div className="container"><p className="eyebrow">Guided by Rosaline</p><h1>Your idea, shaped into the right hair.</h1><p>Tell us what you love. This six-step request keeps every important detail together.</p></div></header>
       <section className="section section--tight custom-order">
         <div className="container">
           <div className="progress" aria-label={`Step ${step + 1} of ${steps.length}`}>
@@ -96,12 +96,12 @@ export default function CustomOrderPage() {
                 <Field label="Density" name="density"><select id="density" name="density" value={values.density} onChange={update}><option>150%</option><option>180%</option><option>200%</option><option>Not sure</option></select></Field>
                 <Field label="Cap size" name="capSize"><select id="capSize" name="capSize" value={values.capSize} onChange={update}><option>Small</option><option>Medium</option><option>Large</option><option>Custom / not sure</option></select></Field>
                 <Field label="Glueless preference" name="glueless"><select id="glueless" name="glueless" value={values.glueless} onChange={update}><option>Yes</option><option>No</option><option>Not sure</option></select></Field>
-                <Field label="Budget currency" name="budgetCurrency"><select id="budgetCurrency" name="budgetCurrency" value={values.budgetCurrency} onChange={update}><option>CAD</option><option>NGN</option></select></Field>
-                <Field label="Budget range" name="budget" help="A budget helps Rosaline recommend realistic options."><input id="budget" name="budget" inputMode="numeric" value={values.budget} onChange={update} placeholder="e.g. 150–220" /></Field>
+                <Field label="Budget currency" name="budgetCurrency"><select id="budgetCurrency" name="budgetCurrency" value={values.budgetCurrency} onChange={update}><option>NGN</option><option>CAD</option></select></Field>
+                <Field label="Budget range" name="budget" help="A budget helps Rosaline recommend realistic options."><input id="budget" name="budget" inputMode="numeric" value={values.budget} onChange={update} placeholder="e.g. 100,000–180,000" /></Field>
               </div>
             ) : null}
             {step === 3 ? (
-              <div className="upload-panel"><label><ImagePlus size={34} /><strong>Add inspiration images</strong><span>Reference hairstyle, colour or screenshot · up to 3 files</span><input type="file" accept="image/*" multiple onChange={addFiles} /><em><Upload size={16} /> Choose images</em></label>{files.length ? <div className="upload-previews">{files.map((file, index) => <figure key={`${file.name}-${index}`}><img src={file.preview} alt={`Selected preview ${index + 1}`} /><figcaption>{file.name}</figcaption><button className="icon-button" type="button" onClick={() => removeFile(index)} aria-label={`Remove ${file.name}`}><X size={16} /></button></figure>)}</div> : <p>No files selected. You can continue without an image.</p>}<p className="demo-notice"><strong>Frontend demo:</strong> images are previewed only and are not uploaded or stored on a server.</p></div>
+              <div className="upload-panel"><label><ImagePlus size={34} /><strong>Add inspiration images</strong><span>Reference hairstyle, colour or screenshot · up to 3 files</span><input type="file" accept="image/*" multiple onChange={addFiles} /><em><Upload size={16} /> Choose images</em></label>{files.length ? <div className="upload-previews">{files.map((file, index) => <figure key={`${file.name}-${index}`}><img src={file.preview} alt={`Selected preview ${index + 1}`} /><figcaption>{file.name}</figcaption><button className="icon-button" type="button" onClick={() => removeFile(index)} aria-label={`Remove ${file.name}`}><X size={16} /></button></figure>)}</div> : <p>No files selected. You can continue without an image.</p>}<p className="order-notice"><strong>Privacy:</strong> inspiration images are previewed on your device only and are not uploaded.</p></div>
             ) : null}
             {step === 4 ? (
               <div className="form-grid">
@@ -121,7 +121,7 @@ export default function CustomOrderPage() {
                   <Field label="Phone or WhatsApp" name="phone" required><input id="phone" name="phone" type="tel" value={values.phone} onChange={update} autoComplete="tel" /></Field>
                   <Field label="Anything else Rosaline should know?" name="notes"><textarea id="notes" name="notes" rows="4" value={values.notes} onChange={update} /></Field>
                 </div>
-                <DemoNotice compact />
+                <OrderNotice compact />
               </div>
             ) : null}
             <div className="wizard__actions">{step > 0 ? <button className="button button--ghost" type="button" onClick={() => setStep(step - 1)}><ArrowLeft size={18} /> Back</button> : <span></span>}{step < 5 ? <button className="button button--primary" type="button" onClick={next}>Continue <ArrowRight size={18} /></button> : <button className="button button--primary" type="button" onClick={submit}><Sparkles size={18} /> Submit custom request</button>}</div>

@@ -2,16 +2,15 @@
 
 ## Scope
 
-Maintain the React/Vite storefront for **Yemi Hair Affordables**, owned by **Rosaline**. The project is an MSPixelPulseAgency demo and must remain a custom pink-and-white beauty experience rather than a generic template.
+Maintain the live React/Vite storefront for **Yemi Hair Affordables**, owned by **Rosaline**. It must remain a custom pink-and-white beauty experience rather than a generic template.
 
-## Brand and placeholders
+## Brand and configuration
 
 - Business: Yemi Hair Affordables
 - Owner: Rosaline
-- Email: `hello@mspixelpulse.com`
-- Phone: `+1 (000) 000-0000`
 - Service context: Canada, Nigeria and selected international locations
-- Social links and WhatsApp: placeholders until confirmed
+- Default currency: NGN, with a persistent CAD option
+- Contact, social and WhatsApp details stay hidden until confirmed environment values are supplied
 
 Read all business details from `src/config/business.js`. Do not scatter contact values through components.
 
@@ -28,7 +27,7 @@ Preserve route splitting, Vercel rewrites, mobile touch targets, keyboard focus,
 
 ## What not to edit
 
-Do not edit another repository, add real client details without approval, remove demo notices, collect payment details, or replace central data with hardcoded component content. Do not touch `Oyemahak/Katrina-Studios`.
+Do not edit another repository, invent client details, make unsupported claims, collect payment details, or replace central data with hardcoded component content. Do not touch `Oyemahak/Katrina-Studios`.
 
 ## Required checks
 

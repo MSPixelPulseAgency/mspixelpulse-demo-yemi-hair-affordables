@@ -4,9 +4,9 @@ export const createOrderReference = () => {
   return `YHA-${year}-${suffix}`;
 };
 
-export const saveDemoOrder = (order) => {
-  const current = JSON.parse(localStorage.getItem("yha-demo-orders") || "[]");
-  localStorage.setItem("yha-demo-orders", JSON.stringify([order, ...current].slice(0, 10)));
+export const saveOrderSummary = (order) => {
+  const current = JSON.parse(localStorage.getItem("yha-order-summaries") || "[]");
+  localStorage.setItem("yha-order-summaries", JSON.stringify([order, ...current].slice(0, 10)));
   localStorage.setItem("yha-latest-order", JSON.stringify(order));
 };
 
@@ -27,7 +27,7 @@ export const buildOrderMessage = (order, formatMoney) => {
       ""
     ]),
     `Currency: ${order.currency}`,
-    `Demo total: ${formatMoney(order.total, order.currency)}`,
+    `Items subtotal: ${formatMoney(order.total, order.currency)}`,
     "",
     "Customer:",
     `Name: ${order.customer.firstName} ${order.customer.lastName}`,

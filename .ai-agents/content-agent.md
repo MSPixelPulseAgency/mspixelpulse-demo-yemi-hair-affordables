@@ -4,14 +4,13 @@
 
 Keep Yemi Hair Affordables warm, clear, feminine and helpful. Rosaline is the owner. Use short paragraphs, confident headings and practical product guidance.
 
-## Demo safety
+## Live-site safety
 
-All products, prices, inventory, reviews, processing estimates, hours, policies and photography are demonstration content until Rosaline confirms them. Never invent awards, certifications, years in business, customer numbers or verified-review claims.
+Write customer-facing copy as a live catalogue, but never invent awards, certifications, years in business, customer numbers, verified reviews, stock claims, shipping promises or contact details. When a business fact is unconfirmed, omit it or say it is confirmed with the order.
 
 Use:
 
 - `src/data/products.js` for catalogue copy and separate CAD/NGN prices
-- `src/data/reviews.js` for clearly marked demo reviews
 - `src/data/faq.js` for editable answers
 - `src/config/business.js` for contact and social details
 
@@ -23,8 +22,12 @@ The site includes home, shop/product, collections, custom order, cart/checkout/s
 
 ## SEO
 
-Every page uses `Seo.jsx`. Maintain unique titles and descriptions, a logical H1, natural Canada/Nigeria wording and schema that contains no fake address.
+Every page uses `Seo.jsx`. Maintain unique titles and descriptions, a logical H1, natural Nigeria/Canada wording and schema that contains no invented address.
+
+## Order flow
+
+The site creates local, copyable order and enquiry summaries. Do not claim a message was sent or an order was received unless a real endpoint is configured. Never collect card or banking details.
 
 ## Handoff
 
-After copy changes, search for stale brand names and placeholder inconsistencies, then run `npm run check`.
+After copy changes, search for stale preview language and unconfirmed business details, then run `npm run check`.

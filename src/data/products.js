@@ -2,12 +2,11 @@ const base = {
   colour: "Natural Black",
   capSizes: ["Small", "Medium", "Large"],
   densityOptions: ["150%", "180%"],
-  stockStatus: "Made to order",
-  rating: 4.8,
+  stockStatus: "Order request available",
   reviewCount: 0,
   careInstructions: "Detangle gently from ends to roots, use lightweight products and store on a wig stand.",
-  estimatedProcessingTime: "Demo estimate: 5–10 business days",
-  tags: ["human hair", "demo product"]
+  estimatedProcessingTime: "Processing timing confirmed after order review",
+  tags: ["human hair", "wig", "hair"]
 };
 
 const image = (name) => `/images/products/${name}.webp`;
@@ -20,7 +19,7 @@ export const products = [
     shortDescription: "Clean lines, soft movement and everyday ease.", priceCAD: 89, priceNGN: 95000,
     compareAtPriceCAD: 105, compareAtPriceNGN: 112000, images: [image("short-bob-05"), image("short-natural-06")],
     lengths: ["8\"", "10\"", "12\""], availableLengths: ["8\"", "10\"", "12\""], laceTypes: ["None", "2x4 Closure"],
-    featured: true, bestSeller: true, newArrival: false, stockStatus: "Low stock"
+    featured: true, bestSeller: true, newArrival: false
   },
   {
     ...base, id: 2, slug: "sleek-fringe-bob", name: "Sleek Fringe Bob", shortName: "Fringe Bob",

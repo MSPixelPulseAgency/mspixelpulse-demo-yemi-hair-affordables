@@ -12,8 +12,8 @@ Confirm the active repository path is `Yemi Hair Affordables`, pull the latest `
 - Do not remove accessibility labels, focus states, focus traps or reduced-motion handling.
 - Keep minimum 44px controls and check very small phones.
 - Preserve CAD/NGN values as separately stored prices.
-- Keep cart and currency persistence compatible with existing local-storage keys.
-- Never turn demo checkout into a fake payment flow.
+- Keep NGN as the fresh-visitor default and preserve the customer’s explicit CAD/NGN choice.
+- Never turn the order-summary flow into a false payment or submission flow.
 
 ## What not to edit
 

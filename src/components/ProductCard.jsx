@@ -11,14 +11,14 @@ export default function ProductCard({ product }) {
   const modalRef = useRef(null);
   const close = useCallback(() => setQuickOpen(false), []);
   useFocusTrap(modalRef, quickOpen, close);
-  const badge = product.newArrival ? "New" : product.bestSeller ? "Best Seller" : product.stockStatus === "Low stock" ? "Low Stock" : "";
+  const badge = product.newArrival ? "New style" : "";
 
   return (
     <>
       <article className="product-card">
         <div className="product-card__media">
           <Link to={`/shop/${product.slug}`} aria-label={`View ${product.name}`}>
-            <img src={product.images[0]} alt={`${product.name} demo style, front view`} loading="lazy" width="600" height="760" />
+            <img src={product.images[0]} alt={`${product.name}, front view`} loading="lazy" width="600" height="760" />
             <img className="product-card__secondary" src={product.images[1]} alt="" loading="lazy" width="600" height="760" />
           </Link>
           {badge ? <span className="badge">{badge}</span> : null}
@@ -40,11 +40,11 @@ export default function ProductCard({ product }) {
         <div className="modal" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && close()}>
           <div className="modal__panel quick-view" ref={modalRef} role="dialog" aria-modal="true" aria-labelledby={`quick-${product.id}`}>
             <button className="icon-button modal__close" type="button" onClick={close} aria-label="Close quick view"><X /></button>
-            <img src={product.images[0]} alt={`${product.name} demo style`} width="600" height="760" />
+            <img src={product.images[0]} alt={product.name} width="600" height="760" />
             <div className="quick-view__content">
               <p className="eyebrow">{product.category}</p>
               <h2 id={`quick-${product.id}`}>{product.name}</h2>
-              <Rating rating={product.rating} />
+              <Rating rating={product.rating} count={product.reviewCount} />
               <Price product={product} large />
               <p>{product.shortDescription}</p>
               <p><strong>Lengths:</strong> {product.availableLengths.join(", ")}</p>

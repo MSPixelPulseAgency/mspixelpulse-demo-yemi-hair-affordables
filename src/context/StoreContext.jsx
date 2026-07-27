@@ -12,14 +12,14 @@ const readStorage = (key, fallback) => {
 };
 
 export function StoreProvider({ children }) {
-  const [currency, setCurrencyState] = useState(() => readStorage("yha-currency", "CAD"));
+  const [currency, setCurrencyState] = useState(() => readStorage("yha-currency-v2", "NGN"));
   const [cart, setCart] = useState(() => readStorage("yha-cart", []));
   const [wishlist, setWishlist] = useState(() => readStorage("yha-wishlist", []));
   const [recentlyViewed, setRecentlyViewed] = useState(() => readStorage("yha-recent", []));
   const [miniCartOpen, setMiniCartOpen] = useState(false);
   const [toast, setToast] = useState("");
 
-  useEffect(() => localStorage.setItem("yha-currency", JSON.stringify(currency)), [currency]);
+  useEffect(() => localStorage.setItem("yha-currency-v2", JSON.stringify(currency)), [currency]);
   useEffect(() => localStorage.setItem("yha-cart", JSON.stringify(cart)), [cart]);
   useEffect(() => localStorage.setItem("yha-wishlist", JSON.stringify(wishlist)), [wishlist]);
   useEffect(() => localStorage.setItem("yha-recent", JSON.stringify(recentlyViewed)), [recentlyViewed]);

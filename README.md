@@ -1,8 +1,6 @@
 # Yemi Hair Affordables
 
-A polished, responsive ecommerce demo for Yemi Hair Affordables, owned by Rosaline. The site presents affordable wigs and human-hair styles to customers in Canada and Nigeria with separate CAD and NGN demo pricing.
-
-> All product names, prices, availability, reviews, photography and shipping estimates are demo content. Rosaline must confirm them before commercial launch.
+A polished, responsive ecommerce catalogue for Yemi Hair Affordables. The site presents wigs and human-hair styles for customers in Nigeria, Canada and selected international locations, with NGN shown by default and an optional CAD view.
 
 ## Tech stack
 
@@ -11,7 +9,7 @@ A polished, responsive ecommerce demo for Yemi Hair Affordables, owned by Rosali
 - React Router
 - Lucide React icons
 - Plain CSS with shared design tokens
-- Browser `localStorage` for demo currency, cart, wishlist and order-request persistence
+- Browser `localStorage` for currency, cart, wishlist and order-summary persistence
 
 ## Local development
 
@@ -22,8 +20,6 @@ nvm use
 npm install
 npm run dev
 ```
-
-Open the local URL printed by Vite.
 
 ## Quality commands
 
@@ -55,14 +51,19 @@ Vercel SPA rewrites are defined in `vercel.json`, so every route works after a d
 Copy `.env.example` to `.env.local`:
 
 ```env
-VITE_SITE_URL=
-VITE_ORDER_EMAIL_ENDPOINT=
+VITE_SITE_URL=https://yemi-hair.vercel.app
+VITE_BUSINESS_EMAIL=
+VITE_BUSINESS_PHONE=
 VITE_WHATSAPP_NUMBER=
+VITE_INSTAGRAM_URL=
+VITE_TIKTOK_URL=
+VITE_FACEBOOK_URL=
+VITE_ORDER_EMAIL_ENDPOINT=
 VITE_ENABLE_EMAIL_ORDERS=false
 VITE_ENABLE_WHATSAPP_ORDERS=true
 ```
 
-Never commit secrets. `VITE_WHATSAPP_NUMBER` should use an international number; the app removes formatting when building a `wa.me` link.
+Never commit secrets. Only publish contact details confirmed by the business. `VITE_WHATSAPP_NUMBER` should use an international number; the app removes formatting when building a `wa.me` link.
 
 ## Updating products and prices
 
@@ -73,42 +74,36 @@ Edit `src/data/products.js`.
 - Do not derive one currency from the other.
 - Keep at least two image paths for card crossfades.
 - Update category and collection slugs carefully because routes depend on them.
-- Confirm availability, processing times and all claims with Rosaline.
+- Confirm availability, processing times and product claims with Rosaline.
 
 ## Updating business details
 
-Edit `src/config/business.js`. Name, owner, email, phone, social links, service note, currencies and integration flags are centralized there.
+Business and integration settings live in `src/config/business.js`. Public contact and social values are supplied through environment variables and stay hidden when not configured.
 
-The current email and phone are MSPixelPulse demo placeholders:
-
-- `hello@mspixelpulse.com`
-- `+1 (000) 000-0000`
-
-Do not add a home address or private contact detail.
+Do not add a home address, private contact detail or unsupported business claim.
 
 ## Updating images
 
 Add optimized WebP or AVIF files under `public/images/`. Use descriptive filenames, meaningful alt text and fixed image dimensions/aspect ratios.
 
-Temporary Pexels sources are listed in `public/images/IMAGE_CREDITS.md`. Replace the owner placeholder with Rosaline’s approved portrait before launch.
+Pexels sources are listed in `public/images/IMAGE_CREDITS.md`. The photography represents hairstyle, texture and finish references and may not depict the exact item supplied.
 
-## How order requests work
+## How order summaries work
 
-Checkout validates customer and delivery information, creates a reference such as `YHA-2026-1048`, stores a demonstration order locally, and prepares a formatted message.
+Checkout validates customer and delivery information, creates a reference such as `YHA-2026-1048`, stores the summary locally, and prepares a copyable message.
 
-The demo:
+The storefront:
 
 - does not charge a card;
 - does not store card or banking information;
 - does not promise fulfilment;
-- does not send email unless a secure endpoint is added;
-- enables WhatsApp handoff only after a confirmed number is configured.
+- enables one-tap WhatsApp handoff only after a confirmed number is configured.
 
-For live orders, connect a protected backend or form service. Keep private API keys server-side.
+Connect a protected backend or form service before accepting automatic submissions. Keep private API keys server-side.
 
 ## Future payment integration
 
-The interface is ready to add Stripe for CAD and Paystack or Flutterwave for NGN. Do not add card fields directly to this frontend. Use the provider’s hosted or secure embedded checkout and confirm legal/policy content before enabling payment.
+The interface can support Stripe for CAD and Paystack or Flutterwave for NGN. Do not add raw card fields directly to this frontend. Use the provider’s hosted or secure embedded checkout and approve policy content before enabling payment.
 
 ## Deployment
 
@@ -120,9 +115,10 @@ Vercel settings:
 - Build Command: `npm run build`
 - Output Directory: `dist`
 - Node.js: 22.x
+- Production URL: `https://yemi-hair.vercel.app`
 
-Set `VITE_SITE_URL` to the final production domain, then update `public/robots.txt` and `public/sitemap.xml` if the alias differs from the current placeholder.
+Keep `VITE_SITE_URL`, `public/robots.txt` and `public/sitemap.xml` aligned with the production URL.
 
 ## Maintenance
 
-Read `.ai-agents/` before AI-assisted edits. Preserve the centralized data/config architecture, demo-safety notices, accessibility behaviour, local SPA rewrite and responsive design system.
+Read `.ai-agents/` before AI-assisted edits. Preserve the centralized data/config architecture, accessibility behaviour, honest order-summary flow, SPA rewrite and responsive design system.

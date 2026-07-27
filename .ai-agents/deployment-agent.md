@@ -2,7 +2,7 @@
 
 ## Repository and branch
 
-This demo must live in its own MSPixelPulseAgency GitHub repository. Confirm the remote and active branch before edits. Never deploy from a nearby empty or unrelated repository.
+This storefront must live in its own MSPixelPulseAgency GitHub repository. Confirm the remote and active branch before edits. Never deploy from a nearby empty or unrelated repository.
 
 ## Build settings
 
@@ -32,7 +32,7 @@ Never commit secrets.
 1. Pull latest and inspect status.
 2. Run `npm install`.
 3. Run `npm run check`.
-4. Search for old demo/brand references.
+4. Search for stale preview language, old domains and unrelated brand references.
 5. Commit a small clean change and push `main`.
 6. Deploy production to Vercel.
 7. Verify deployment logs, the public alias, core routes and an HTTP `200`.

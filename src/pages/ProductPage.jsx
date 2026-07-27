@@ -43,7 +43,7 @@ export default function ProductPage() {
     }
   }) : null, [product, currency]);
 
-  if (!product) return <div className="container empty-state page-empty"><h1>Style not found</h1><p>This demo product may have moved.</p><Link className="button button--primary" to="/shop">Return to shop</Link></div>;
+  if (!product) return <div className="container empty-state page-empty"><h1>Style not found</h1><p>This product may have moved or is no longer listed.</p><Link className="button button--primary" to="/shop">Return to shop</Link></div>;
   const related = products.filter((item) => item.id !== product.id && (item.category === product.category || item.texture === product.texture)).slice(0, 4);
   const recent = recentlyViewed.filter((id) => id !== product.id).map((id) => products.find((item) => item.id === id)).filter(Boolean).slice(0, 4);
   const setOption = (key, value) => setOptions((current) => ({ ...current, [key]: value }));
@@ -51,20 +51,20 @@ export default function ProductPage() {
   const buyNow = () => { add(); navigate("/checkout"); };
   const details = [
     ["Product details", product.description],
-    ["Hair specifications", `${product.texture} demo style in ${product.colour}. Available demo lengths: ${product.availableLengths.join(", ")}. Lace choices: ${product.laceTypes.join(", ")}.`],
-    ["What is included", "One selected demo wig or hair item. Packaging and accessories will be confirmed before fulfilment."],
+    ["Hair specifications", `${product.texture} style in ${product.colour}. Listed lengths: ${product.availableLengths.join(", ")}. Lace choices: ${product.laceTypes.join(", ")}.`],
+    ["What is included", "One selected wig or hair item. Packaging and included accessories are confirmed with your order."],
     ["Care instructions", product.careInstructions],
-    ["Processing and delivery", `${product.estimatedProcessingTime}. This is a demo estimate and will be confirmed for your destination.`],
+    ["Processing and delivery", `${product.estimatedProcessingTime}. Delivery timing is confirmed for your destination before payment.`],
     ["Returns and exchanges", "Eligibility depends on the confirmed hygiene and custom-order policy. Review the final terms before payment."]
   ];
 
   return (
     <>
-      <Seo title={product.name} description={`${product.shortDescription} View demo CAD and NGN pricing, lengths, lace and cap-size options.`} path={`/shop/${product.slug}`} image={product.images[0]} schema={schema} />
+      <Seo title={product.name} description={`${product.shortDescription} View NGN and CAD pricing, lengths, lace and cap-size options.`} path={`/shop/${product.slug}`} image={product.images[0]} schema={schema} />
       <div className="container breadcrumb"><Link to="/shop"><ArrowLeft size={15} /> Shop</Link><span>/</span><span>{product.category}</span><span>/</span><span>{product.shortName}</span></div>
       <section className="container product-detail">
         <div className="product-gallery">
-          <div className="product-gallery__main"><img src={product.images[activeImage]} alt={`${product.name} demo style, image ${activeImage + 1} of ${product.images.length}`} width="800" height="980" /><span>{activeImage + 1} / {product.images.length}</span></div>
+          <div className="product-gallery__main"><img src={product.images[activeImage]} alt={`${product.name}, image ${activeImage + 1} of ${product.images.length}`} width="800" height="980" /><span>{activeImage + 1} / {product.images.length}</span></div>
           <div className="product-gallery__thumbs">{product.images.map((source, index) => <button type="button" className={activeImage === index ? "is-active" : ""} onClick={() => setActiveImage(index)} key={source} aria-label={`Show product image ${index + 1}`}><img src={source} alt="" width="100" height="124" /></button>)}</div>
         </div>
         <div className="product-info">
@@ -72,9 +72,9 @@ export default function ProductPage() {
           <h1>{product.name}</h1>
           <Rating rating={product.rating} count={product.reviewCount} />
           <Price product={product} large />
-          <p className="currency-note">Prices are shown in {currency}. Final payment and delivery details will be confirmed before fulfilment.</p>
+          <p className="currency-note">Prices are shown in {currency}. Use the header switcher to view {currency === "NGN" ? "CAD" : "NGN"}.</p>
           <p className="product-info__lead">{product.shortDescription}</p>
-          <div className="stock-line"><Check size={17} /> {product.stockStatus} <span>· Availability must be confirmed</span></div>
+          <div className="stock-line"><Check size={17} /> {product.stockStatus} <span>· Confirmation follows before payment</span></div>
           <OptionButtons label="Length" values={product.availableLengths} value={options.length} onChange={(value) => setOption("length", value)} />
           <OptionButtons label="Lace type" values={product.laceTypes} value={options.laceType} onChange={(value) => setOption("laceType", value)} />
           <OptionButtons label="Density" values={product.densityOptions} value={options.density} onChange={(value) => setOption("density", value)} />
@@ -82,7 +82,7 @@ export default function ProductPage() {
           <div className="product-buy-row"><Quantity value={quantity} onChange={setQuantity} /><button className="button button--primary" type="button" onClick={add}><ShoppingBag size={18} /> Add to cart</button><button className={`icon-button wishlist-large ${wishlist.includes(product.id) ? "is-active" : ""}`} type="button" onClick={() => toggleWishlist(product.id)} aria-label="Toggle wishlist"><Heart fill={wishlist.includes(product.id) ? "currentColor" : "none"} /></button></div>
           <button className="button button--dark button--full" type="button" onClick={buyNow}>Order this style</button>
           <Link className="button button--whatsapp button--full" to="/contact"><MessageCircle size={18} /> Ask Rosaline a question</Link>
-          <div className="service-points"><p><Truck /><span><strong>{product.estimatedProcessingTime}</strong>Confirmed after request</span></p><p><ShieldCheck /><span><strong>No card details collected</strong>Payment method confirmed securely later</span></p><p><HelpCircle /><span><strong>Need help choosing?</strong>Use the hair guide or contact page</span></p></div>
+          <div className="service-points"><p><Truck /><span><strong>Processing and delivery</strong>Timing confirmed with your order</span></p><p><ShieldCheck /><span><strong>No card details collected</strong>Payment method confirmed securely later</span></p><p><HelpCircle /><span><strong>Need help choosing?</strong>Use the hair guide or contact page</span></p></div>
           <Accordion items={details} allowMultiple />
         </div>
       </section>

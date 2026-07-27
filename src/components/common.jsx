@@ -16,10 +16,11 @@ export function Price({ product, large = false }) {
 }
 
 export function Rating({ rating = 4.8, count = 0 }) {
+  if (!count) return null;
   return (
     <div className="rating" aria-label={`${rating} out of 5 stars`}>
       <span aria-hidden="true">{[0, 1, 2, 3, 4].map((item) => <Star key={item} size={15} fill="currentColor" />)}</span>
-      <small>{rating.toFixed(1)} {count ? `(${count})` : "(demo)"}</small>
+      <small>{rating.toFixed(1)} ({count})</small>
     </div>
   );
 }
@@ -99,6 +100,6 @@ export function Field({ label, name, error, required, help, children }) {
   );
 }
 
-export function DemoNotice({ compact = false }) {
-  return <p className={`demo-notice ${compact ? "demo-notice--compact" : ""}`}><strong>Demo note:</strong> Products, prices, reviews, availability, contact details and delivery estimates must be confirmed by Rosaline before launch.</p>;
+export function OrderNotice({ compact = false }) {
+  return <p className={`order-notice ${compact ? "order-notice--compact" : ""}`}><strong>Before payment:</strong> availability, customization, delivery timing and the final order total are confirmed with you.</p>;
 }

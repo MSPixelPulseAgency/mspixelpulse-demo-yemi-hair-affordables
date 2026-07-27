@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { Facebook, Heart, Instagram, Menu, MessageCircle, Search, ShoppingBag, UserRound, X } from "lucide-react";
+import { Facebook, Heart, Instagram, Menu, MessageCircle, Search, ShoppingBag, X } from "lucide-react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { businessConfig, formatMoney } from "../config/business";
 import { products } from "../data/products";
@@ -26,8 +26,8 @@ function CurrencySwitcher({ compact = false }) {
     <label className={`currency ${compact ? "currency--compact" : ""}`}>
       <span className="sr-only">Display currency</span>
       <select value={currency} onChange={(event) => setCurrency(event.target.value)} aria-label="Display currency">
-        <option value="CAD">CAD — $</option>
         <option value="NGN">NGN — ₦</option>
+        <option value="CAD">CAD — $</option>
       </select>
     </label>
   );
@@ -113,7 +113,7 @@ function Header() {
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to main content</a>
-      <div className="announcement"><p>Beautiful hair. Fair prices. <span>Canada and Nigeria orders welcome.</span></p></div>
+      <div className="announcement"><p>Beautiful hair. Fair prices. <span>Prices shown in naira by default—switch to CAD anytime.</span></p></div>
       <header className="site-header">
         <div className="site-header__inner container">
           <button className="icon-button mobile-only" type="button" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Menu /></button>
@@ -124,7 +124,6 @@ function Header() {
           <div className="header-actions">
             <CurrencySwitcher compact />
             <button className="icon-button" type="button" onClick={() => setSearchOpen(true)} aria-label="Search products"><Search /></button>
-            <Link className="icon-button desktop-icon" to="/about" aria-label="Account information placeholder"><UserRound /></Link>
             <Link className="icon-button desktop-icon" to="/shop" aria-label={`${wishlist.length} wishlist items`}><Heart /></Link>
             <button className="icon-button cart-button" type="button" onClick={() => setMiniCartOpen(true)} aria-label={`Open cart with ${cartCount} items`}><ShoppingBag /><span>{cartCount}</span></button>
           </div>
@@ -139,15 +138,20 @@ function Header() {
 
 function Footer() {
   const year = new Date().getFullYear();
+  const socialLinks = [
+    businessConfig.instagram ? [businessConfig.instagram, "Instagram", Instagram] : null,
+    businessConfig.facebook ? [businessConfig.facebook, "Facebook", Facebook] : null,
+    businessConfig.whatsappNumber ? [`https://wa.me/${businessConfig.whatsappNumber.replace(/\D/g, "")}`, "WhatsApp", MessageCircle] : null
+  ].filter(Boolean);
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
-        <div className="footer-brand"><Brand /><p>Beautiful hair selected with care by Rosaline. Premium feeling, fair pricing and personal guidance.</p><div className="socials"><a href={businessConfig.instagram} aria-label="Instagram placeholder"><Instagram /></a><a href={businessConfig.facebook} aria-label="Facebook placeholder"><Facebook /></a><a href="#" aria-label="WhatsApp placeholder"><MessageCircle /></a></div></div>
+        <div className="footer-brand"><Brand /><p>Beautiful hair selected with care by Rosaline. Premium feeling, fair pricing and personal guidance.</p>{socialLinks.length ? <div className="socials">{socialLinks.map(([href, label, Icon]) => <a href={href} aria-label={label} key={label} target="_blank" rel="noreferrer"><Icon /></a>)}</div> : null}</div>
         <div><h2>Shop</h2><Link to="/shop">All hair</Link><Link to="/collections/bob-wigs">Bob wigs</Link><Link to="/collections/curly-hair">Curly hair</Link><Link to="/collections/straight-hair">Straight hair</Link><Link to="/custom-order">Custom order</Link></div>
         <div><h2>Customer care</h2><Link to="/hair-guide">Hair guide</Link><Link to="/faq">FAQs</Link><Link to="/contact">Contact</Link><Link to="/shipping-returns">Shipping & returns</Link><Link to="/cart">Cart</Link></div>
-        <div><h2>Policies</h2><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link><p>{businessConfig.email}<br />{businessConfig.phone}</p><p>CAD and NGN prices are stored separately. Final details are confirmed before fulfilment.</p></div>
+        <div><h2>Policies</h2><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link>{businessConfig.email || businessConfig.phone ? <p>{businessConfig.email}{businessConfig.email && businessConfig.phone ? <br /> : null}{businessConfig.phone}</p> : null}<p>Prices are shown in NGN by default. Switch to CAD anytime; order details are confirmed before fulfilment.</p></div>
       </div>
-      <div className="container footer-bottom"><p>© {year} Yemi Hair Affordables. Demo website by MSPixelPulse.</p><p>Visa · Mastercard · Interac · Bank transfer <span>(integration-ready placeholders)</span></p></div>
+      <div className="container footer-bottom"><p>© {year} Yemi Hair Affordables. All rights reserved.</p><p>Nigeria · Canada · Selected international locations</p></div>
     </footer>
   );
 }

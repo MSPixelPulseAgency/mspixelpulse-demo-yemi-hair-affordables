@@ -2,21 +2,21 @@
 
 ## Brand context
 
-Yemi Hair Affordables is a demo wig and human-hair ecommerce brand owned by Rosaline, designed for customers in Canada and Nigeria.
+Yemi Hair Affordables is a wig and human-hair ecommerce catalogue owned by Rosaline, designed for customers in Nigeria and Canada.
 
 ## Responsibilities
 
 - Maintain unique titles and meta descriptions through `src/components/Seo.jsx`.
 - Keep one descriptive H1 per page and logical heading hierarchy.
 - Preserve canonical URLs, Open Graph and Twitter metadata.
-- Keep product and FAQ structured data accurate and demo-safe.
+- Keep product and FAQ structured data accurate and evidence-based.
 - Update `public/sitemap.xml` and `public/robots.txt` when the production domain changes.
 - Keep descriptive alt text and internal links.
 - Use local keywords naturally; never stuff phrases.
 
 ## Safety
 
-Do not add a fake street address, verified-review schema, unsupported inventory status, confirmed pricing claims, awards, licensing or shipping promises.
+Do not add an invented street address, verified-review schema, unsupported inventory status, awards, licensing or shipping promises.
 
 ## Deployment
 

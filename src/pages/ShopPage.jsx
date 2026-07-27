@@ -3,6 +3,7 @@ import { RotateCcw, Search, SlidersHorizontal, X } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import Seo from "../components/Seo";
 import ProductCard from "../components/ProductCard";
+import { VideoFeature } from "../components/LoopingVideo";
 import { OrderNotice } from "../components/common";
 import { products } from "../data/products";
 import { useStore } from "../context/StoreContext";
@@ -80,6 +81,17 @@ export default function ShopPage() {
     <>
       <Seo title="Shop Wigs & Human Hair" description="Browse wigs and human-hair styles in bob, straight, curly, closure, frontal and headband collections with NGN and CAD pricing." path="/shop" />
       <header className="page-hero page-hero--compact"><div className="container"><p className="eyebrow">The full edit</p><h1>Shop hair</h1><p>Find the texture, length and fit that works for your routine.</p></div></header>
+      <VideoFeature
+        compact
+        src="/videos/natural-hair-portrait.mp4"
+        poster="/images/video-posters/natural-hair-portrait.webp"
+        label="Black woman moving and styling her natural hair"
+        eyebrow="See the finish move"
+        title="Choose shape, not just a still image."
+        text="Compare movement and fullness, then use the filters below to find the closest texture."
+        href="/collections"
+        cta="Browse collections"
+      />
       <div className="container shop-toolbar">
         <label className="shop-search"><span className="sr-only">Search shop</span><Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search hair, texture or length" /></label>
         <button className="button button--ghost mobile-filter" type="button" onClick={() => setDrawerOpen(true)}><SlidersHorizontal size={18} /> Filters</button>

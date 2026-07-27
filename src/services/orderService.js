@@ -30,7 +30,7 @@ export const buildOrderMessage = (order, formatMoney) => {
     `Items subtotal: ${formatMoney(order.total, order.currency)}`,
     "",
     "Customer:",
-    `Name: ${order.customer.firstName} ${order.customer.lastName}`,
+    `Name: ${`${order.customer.firstName} ${order.customer.lastName}`.trim()}`,
     `Phone: ${order.customer.phone}`,
     `City/Country: ${order.delivery.city}, ${order.delivery.country}`,
     "",

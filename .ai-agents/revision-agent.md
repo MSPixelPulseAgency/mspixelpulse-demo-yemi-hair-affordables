@@ -10,9 +10,10 @@ Confirm the active path is `/Users/mahak/Documents/Yemi Hair Affordables`, the r
 - The hamburger drawer is only for tablet/mobile and each menu item uses a Lucide icon.
 - The header is glassy but non-sticky and scrolls away normally.
 - Mobile shopping routes show a separate, uncropped NGN/CAD control; content routes do not.
-- `public/yemi-hair-logo.png` is the active owner-approved flowing-hair logo.
+- `public/yemi-hair-logo.png` is the untouched owner-supplied source; `public/yemi-hair-mark.png` is the cropped transparent production mark.
 - NGN is the fresh-visitor default and an explicit CAD/NGN choice persists.
-- Home uses local Pexels-sourced videos with controls and reduced-motion handling.
+- Primary shopping and content pages use local Pexels-sourced videos through `src/components/LoopingVideo.jsx`, with controls and reduced-motion handling.
+- Keep `/custom-order` and `/checkout` short. Do not restore the former six-step custom-order wizard or request full address/payment details before follow-up.
 - The proof strip uses catalogue/service facts, never invented customer counts.
 - Blog content lives centrally in `src/data/blogPosts.js` and routes through `/blog/:slug`.
 - Footer spacing and three-column link structure must remain deliberate and responsive.

@@ -38,7 +38,7 @@ The production output is written to `dist/`.
 - `/shop` — searchable, sortable and filterable catalogue
 - `/shop/:slug` — product details and variations
 - `/collections` and `/collections/:slug`
-- `/custom-order` — six-step custom request
+- `/custom-order` — two-minute custom request form
 - `/cart`, `/checkout`, `/order-success`
 - `/about`, `/hair-guide`, `/faq`, `/contact`
 - `/blog` — The Hair Edit article index
@@ -90,7 +90,7 @@ Edit `src/data/blogPosts.js`.
 
 ## Brand assets and navigation
 
-The approved flowing-hair logo supplied by the owner lives at `public/yemi-hair-logo.png` and is also used as the browser icon.
+The owner-supplied flowing-hair artwork is preserved at `public/yemi-hair-logo.png`. The tightly cropped transparent production mark and browser icon live at `public/yemi-hair-mark.png`.
 
 - Desktop uses the full text navigation.
 - Tablet and mobile use an icon-led drawer.

@@ -1,5 +1,6 @@
 import { ArrowRight, BookOpen, Globe2, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { VideoFeature } from "../components/LoopingVideo";
 import Seo from "../components/Seo";
 import { Reveal } from "../components/common";
 import { blogPosts } from "../data/blogPosts";
@@ -48,6 +49,18 @@ export default function BlogPage() {
       </header>
 
       <div>
+        <VideoFeature
+          compact
+          dark
+          src="/videos/afro-outdoors.mp4"
+          poster="/images/video-posters/afro-outdoors.webp"
+          label="Black woman wearing a rounded afro outdoors"
+          eyebrow="The Hair Edit in motion"
+          title="Texture is part of the story."
+          text="Watch shape and volume move, then read practical guides for choosing, styling and caring for your look."
+          href="/blog/texture-first-hair-trends-2026"
+          cta="Read the texture report"
+        />
         <section className="section section--tight">
           <div className="container">
             <article className="blog-feature">

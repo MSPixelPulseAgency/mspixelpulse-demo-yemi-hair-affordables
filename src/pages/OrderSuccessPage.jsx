@@ -22,12 +22,12 @@ export default function OrderSuccessPage() {
       <section className="success-page container">
         <div className="success-page__icon"><CheckCircle2 /></div>
         <p className="eyebrow">Summary saved on this device</p>
-        <h1>Your order summary is ready.</h1>
+        <h1>{order?.kind === "custom" ? "Your custom request is ready." : "Your order summary is ready."}</h1>
         {order ? (
           <>
             <p>Your reference is <strong>{order.reference}</strong>. Copy the summary below and share it through Yemi Hair’s confirmed contact channel.</p>
             <div className="success-card">
-              <div><span>Reference</span><strong>{order.reference}</strong></div><div><span>Items subtotal</span><strong>{formatMoney(order.total, order.currency)}</strong></div><div><span>Status</span><strong>Ready to share</strong></div>
+              <div><span>Reference</span><strong>{order.reference}</strong></div>{order.total != null ? <div><span>Items subtotal</span><strong>{formatMoney(order.total, order.currency)}</strong></div> : <div><span>Request type</span><strong>Custom hair</strong></div>}<div><span>Status</span><strong>Ready to share</strong></div>
               <pre>{order.message}</pre>
               <div className="success-card__actions"><button className="button button--ghost" type="button" onClick={copy}><Clipboard size={18} /> Copy summary</button>{whatsappHref ? <a className="button button--whatsapp" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Send on WhatsApp</a> : <Link className="button button--ghost" to="/contact"><MessageCircle size={18} /> Contact Rosaline</Link>}</div>
             </div>

@@ -1,145 +1,185 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, ImagePlus, Sparkles, Upload, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { CheckCircle2, Clock3, ImagePlus, Sparkles, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import LoopingVideo from "../components/LoopingVideo";
 import Seo from "../components/Seo";
 import { Field, OrderNotice } from "../components/common";
-import { createOrderReference } from "../services/orderService";
 import { useStore } from "../context/StoreContext";
+import { createOrderReference, saveOrderSummary } from "../services/orderService";
 
-const steps = ["Hair type", "Style", "Specifications", "Inspiration", "Delivery", "Review"];
 const initial = {
-  hairType: "", style: "", length: "16 inches", colour: "Natural black", lace: "Not sure", density: "180%",
-  capSize: "Medium", glueless: "Yes", budgetCurrency: "NGN", budget: "", country: "Nigeria", city: "",
-  neededBy: "", delivery: "Delivery", firstName: "", lastName: "", email: "", phone: "", notes: ""
+  name: "",
+  phone: "",
+  style: "",
+  location: "",
+  budget: "",
+  notes: "",
+  consent: false,
+  website: ""
 };
 
-const choices = {
-  hairType: ["Wig", "Bundles", "Closure wig", "Frontal wig", "Headband wig", "Bob wig", "Not sure — help me choose"],
-  style: ["Straight", "Body wave", "Deep wave", "Water wave", "Kinky curly", "Loose curl", "Custom reference"]
+const validate = (values) => {
+  const errors = {};
+  if (!values.name.trim()) errors.name = "Enter your name.";
+  if (!values.phone.trim()) errors.phone = "Enter a phone or WhatsApp number.";
+  if (!values.style.trim()) errors.style = "Choose the closest style.";
+  if (!values.location.trim()) errors.location = "Enter your city and country.";
+  if (!values.consent) errors.consent = "Confirm that this is a request, not a completed payment.";
+  return errors;
 };
 
 export default function CustomOrderPage() {
   const navigate = useNavigate();
-  const { setToast } = useStore();
-  const [step, setStep] = useState(0);
-  const [values, setValues] = useState(() => {
-    try { return JSON.parse(localStorage.getItem("yha-custom-draft")) || initial; } catch { return initial; }
-  });
-  const [files, setFiles] = useState([]);
-  const fileUrls = useRef([]);
+  const { currency, setToast } = useStore();
+  const formRef = useRef(null);
+  const previewUrl = useRef("");
+  const [values, setValues] = useState(initial);
+  const [referenceFile, setReferenceFile] = useState(null);
   const [errors, setErrors] = useState({});
-  useEffect(() => localStorage.setItem("yha-custom-draft", JSON.stringify(values)), [values]);
-  useEffect(() => () => fileUrls.current.forEach((url) => URL.revokeObjectURL(url)), []);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => () => {
+    if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
+  }, []);
 
   const update = (event) => {
-    const { name, value } = event.target;
-    setValues((current) => ({ ...current, [name]: value }));
-    setErrors((current) => ({ ...current, [name]: "" }));
+    const { name, value, type, checked } = event.target;
+    setValues((current) => ({ ...current, [name]: type === "checkbox" ? checked : value }));
+    if (errors[name]) setErrors((current) => ({ ...current, [name]: "" }));
   };
-  const select = (key, value) => setValues((current) => ({ ...current, [key]: value }));
-  const addFiles = (event) => {
-    const selected = [...event.target.files].slice(0, 3 - files.length).map((file) => ({ file, name: file.name, preview: URL.createObjectURL(file) }));
-    fileUrls.current.push(...selected.map((file) => file.preview));
-    setFiles((current) => [...current, ...selected].slice(0, 3));
+
+  const chooseImage = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
+    previewUrl.current = URL.createObjectURL(file);
+    setReferenceFile({ name: file.name, preview: previewUrl.current });
   };
-  const removeFile = (index) => setFiles((current) => {
-    URL.revokeObjectURL(current[index].preview);
-    fileUrls.current = fileUrls.current.filter((url) => url !== current[index].preview);
-    return current.filter((_, itemIndex) => itemIndex !== index);
-  });
-  const canAdvance = useMemo(() => {
-    if (step === 0) return Boolean(values.hairType);
-    if (step === 1) return Boolean(values.style);
-    if (step === 4) return Boolean(values.country && values.city);
-    if (step === 5) return Boolean(values.firstName && values.email && values.phone);
-    return true;
-  }, [step, values]);
-  const next = () => {
-    if (!canAdvance) {
-      setErrors({ step: "Complete the required choices before continuing." });
+
+  const submit = async (event) => {
+    event.preventDefault();
+    if (values.website) return;
+    const nextErrors = validate(values);
+    if (Object.keys(nextErrors).length) {
+      setErrors(nextErrors);
+      requestAnimationFrame(() => formRef.current?.querySelector("[aria-invalid='true']")?.focus());
       return;
     }
-    setErrors({});
-    setStep((current) => Math.min(5, current + 1));
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-  const submit = () => {
-    if (!canAdvance) return next();
+
+    setSubmitting(true);
     const reference = createOrderReference().replace("YHA", "YHA-CUSTOM");
-    const customOrder = { reference, createdAt: new Date().toISOString(), values, files: files.map((file) => file.name), status: "Custom order summary created" };
-    localStorage.setItem("yha-latest-custom-order", JSON.stringify(customOrder));
-    localStorage.removeItem("yha-custom-draft");
-    setToast(`Custom request ${reference} saved.`);
-    navigate("/contact", { state: { customReference: reference } });
+    const message = [
+      "Hello Yemi Hair Affordables,",
+      "",
+      "I would like help with a custom hair order.",
+      `Reference: ${reference}`,
+      `Name: ${values.name}`,
+      `Phone / WhatsApp: ${values.phone}`,
+      `Style: ${values.style}`,
+      `Location: ${values.location}`,
+      `Budget: ${values.budget || "Not specified"} ${values.budget ? currency : ""}`,
+      `Reference image: ${referenceFile ? `${referenceFile.name} (I will attach it separately)` : "None"}`,
+      `Notes: ${values.notes || "None"}`,
+      "",
+      "Please confirm availability, the final specifications, price, payment and delivery."
+    ].join("\n");
+    const order = {
+      kind: "custom",
+      reference,
+      createdAt: new Date().toISOString(),
+      status: "Custom request ready to share",
+      currency,
+      total: null,
+      items: [],
+      customer: { firstName: values.name, lastName: "", phone: values.phone, email: "" },
+      delivery: { city: values.location, country: "" },
+      details: { style: values.style, budget: values.budget, notes: values.notes, referenceFile: referenceFile?.name || "" },
+      message
+    };
+    await new Promise((resolve) => window.setTimeout(resolve, 300));
+    saveOrderSummary(order);
+    setToast(`Quick request ${reference} is ready.`);
+    navigate("/order-success");
   };
 
   return (
     <>
-      <Seo title="Custom Hair Order" description="Build a custom Yemi Hair Affordables request by choosing hair type, style, length, lace, density, cap size, budget and delivery details." path="/custom-order" />
-      <header className="custom-hero"><div className="container"><p className="eyebrow">Guided by Rosaline</p><h1>Your idea, shaped into the right hair.</h1><p>Tell us what you love. This six-step request keeps every important detail together.</p></div></header>
-      <section className="section section--tight custom-order">
+      <Seo title="Quick Custom Hair Order" description="Prepare a custom Yemi Hair Affordables request in one short form with your style, location and contact details." path="/custom-order" />
+      <header className="custom-hero">
         <div className="container">
-          <div className="progress" aria-label={`Step ${step + 1} of ${steps.length}`}>
-            <div className="progress__bar"><span style={{ width: `${((step + 1) / steps.length) * 100}%` }}></span></div>
-            <ol>{steps.map((label, index) => <li className={index <= step ? "is-active" : ""} key={label}><span>{index < step ? <Check size={15} /> : index + 1}</span><small>{label}</small></li>)}</ol>
-          </div>
-          <div className="wizard">
-            <div className="wizard__heading"><p className="eyebrow">Step {step + 1} of 6</p><h2>{stepTitles[step]}</h2><p>{stepDescriptions[step]}</p></div>
-            {errors.step ? <p className="error-summary" role="alert">{errors.step}</p> : null}
-            {step === 0 ? <ChoiceGrid options={choices.hairType} value={values.hairType} onSelect={(value) => select("hairType", value)} /> : null}
-            {step === 1 ? <ChoiceGrid options={choices.style} value={values.style} onSelect={(value) => select("style", value)} visual /> : null}
-            {step === 2 ? (
-              <div className="form-grid">
-                <Field label="Length" name="length"><select id="length" name="length" value={values.length} onChange={update}>{["8 inches", "10 inches", "12 inches", "14 inches", "16 inches", "18 inches", "20 inches", "22 inches", "24 inches", "Custom length"].map((item) => <option key={item}>{item}</option>)}</select></Field>
-                <Field label="Colour" name="colour"><select id="colour" name="colour" value={values.colour} onChange={update}><option>Natural black</option><option>Dark brown</option><option>Custom colour</option><option>Not sure</option></select></Field>
-                <Field label="Lace" name="lace"><select id="lace" name="lace" value={values.lace} onChange={update}><option>Not sure</option><option>No lace</option><option>4x4 Closure</option><option>5x5 Closure</option><option>13x4 Frontal</option><option>HD lace</option></select></Field>
-                <Field label="Density" name="density"><select id="density" name="density" value={values.density} onChange={update}><option>150%</option><option>180%</option><option>200%</option><option>Not sure</option></select></Field>
-                <Field label="Cap size" name="capSize"><select id="capSize" name="capSize" value={values.capSize} onChange={update}><option>Small</option><option>Medium</option><option>Large</option><option>Custom / not sure</option></select></Field>
-                <Field label="Glueless preference" name="glueless"><select id="glueless" name="glueless" value={values.glueless} onChange={update}><option>Yes</option><option>No</option><option>Not sure</option></select></Field>
-                <Field label="Budget currency" name="budgetCurrency"><select id="budgetCurrency" name="budgetCurrency" value={values.budgetCurrency} onChange={update}><option>NGN</option><option>CAD</option></select></Field>
-                <Field label="Budget range" name="budget" help="A budget helps Rosaline recommend realistic options."><input id="budget" name="budget" inputMode="numeric" value={values.budget} onChange={update} placeholder="e.g. 100,000–180,000" /></Field>
-              </div>
-            ) : null}
-            {step === 3 ? (
-              <div className="upload-panel"><label><ImagePlus size={34} /><strong>Add inspiration images</strong><span>Reference hairstyle, colour or screenshot · up to 3 files</span><input type="file" accept="image/*" multiple onChange={addFiles} /><em><Upload size={16} /> Choose images</em></label>{files.length ? <div className="upload-previews">{files.map((file, index) => <figure key={`${file.name}-${index}`}><img src={file.preview} alt={`Selected preview ${index + 1}`} /><figcaption>{file.name}</figcaption><button className="icon-button" type="button" onClick={() => removeFile(index)} aria-label={`Remove ${file.name}`}><X size={16} /></button></figure>)}</div> : <p>No files selected. You can continue without an image.</p>}<p className="order-notice"><strong>Privacy:</strong> inspiration images are previewed on your device only and are not uploaded.</p></div>
-            ) : null}
-            {step === 4 ? (
-              <div className="form-grid">
-                <Field label="Country" name="country" required><select id="country" name="country" value={values.country} onChange={update}><option>Canada</option><option>Nigeria</option><option>Other international location</option></select></Field>
-                <Field label="City" name="city" required><input id="city" name="city" value={values.city} onChange={update} autoComplete="address-level2" /></Field>
-                <Field label="Needed-by date" name="neededBy" help="Requested dates are confirmed after review."><input id="neededBy" name="neededBy" type="date" value={values.neededBy} onChange={update} /></Field>
-                <Field label="Delivery or pickup" name="delivery"><select id="delivery" name="delivery" value={values.delivery} onChange={update}><option>Delivery</option><option>Pickup — if available</option></select></Field>
-              </div>
-            ) : null}
-            {step === 5 ? (
-              <div className="wizard-review">
-                <div className="review-summary"><ReviewRow label="Hair type" value={values.hairType} /><ReviewRow label="Style" value={values.style} /><ReviewRow label="Specifications" value={`${values.length} · ${values.colour} · ${values.lace} · ${values.density} · ${values.capSize}`} /><ReviewRow label="Budget" value={`${values.budgetCurrency} ${values.budget || "not specified"}`} /><ReviewRow label="Inspiration" value={files.length ? files.map((file) => file.name).join(", ") : "No image attached"} /><ReviewRow label="Delivery" value={`${values.city}, ${values.country} · ${values.delivery}`} /></div>
-                <div className="form-grid">
-                  <Field label="First name" name="firstName" required><input id="firstName" name="firstName" value={values.firstName} onChange={update} autoComplete="given-name" /></Field>
-                  <Field label="Last name" name="lastName"><input id="lastName" name="lastName" value={values.lastName} onChange={update} autoComplete="family-name" /></Field>
-                  <Field label="Email" name="email" required><input id="email" name="email" type="email" value={values.email} onChange={update} autoComplete="email" /></Field>
-                  <Field label="Phone or WhatsApp" name="phone" required><input id="phone" name="phone" type="tel" value={values.phone} onChange={update} autoComplete="tel" /></Field>
-                  <Field label="Anything else Rosaline should know?" name="notes"><textarea id="notes" name="notes" rows="4" value={values.notes} onChange={update} /></Field>
-                </div>
-                <OrderNotice compact />
-              </div>
-            ) : null}
-            <div className="wizard__actions">{step > 0 ? <button className="button button--ghost" type="button" onClick={() => setStep(step - 1)}><ArrowLeft size={18} /> Back</button> : <span></span>}{step < 5 ? <button className="button button--primary" type="button" onClick={next}>Continue <ArrowRight size={18} /></button> : <button className="button button--primary" type="button" onClick={submit}><Sparkles size={18} /> Submit custom request</button>}</div>
-          </div>
+          <p className="eyebrow">Quick custom request</p>
+          <h1>Tell us the look. We’ll confirm the details.</h1>
+          <p>One short form—no six-step process. Most requests take about two minutes to prepare.</p>
+        </div>
+      </header>
+      <section className="section section--tight custom-order">
+        <div className="container quick-order-layout">
+          <form className="quick-order-form" onSubmit={submit} noValidate ref={formRef}>
+            <div className="quick-order-form__heading">
+              <p className="eyebrow">Only the essentials</p>
+              <h2>Start your request</h2>
+              <p>We will confirm length, lace, density, cap size, exact price and delivery with you after you share the summary.</p>
+            </div>
+            {Object.values(errors).some(Boolean) ? <div className="error-summary" role="alert"><strong>Please complete the highlighted fields.</strong></div> : null}
+            <div className="form-grid quick-order-fields">
+              <Field label="Your name" name="name" required error={errors.name}>
+                <input id="name" name="name" autoComplete="name" value={values.name} onChange={update} aria-invalid={Boolean(errors.name)} />
+              </Field>
+              <Field label="Phone or WhatsApp" name="phone" required error={errors.phone}>
+                <input id="phone" name="phone" type="tel" autoComplete="tel" value={values.phone} onChange={update} aria-invalid={Boolean(errors.phone)} />
+              </Field>
+              <Field label="Closest style" name="style" required error={errors.style}>
+                <select id="style" name="style" value={values.style} onChange={update} aria-invalid={Boolean(errors.style)}>
+                  <option value="">Choose one</option>
+                  <option>Bob wig</option>
+                  <option>Straight wig</option>
+                  <option>Body wave</option>
+                  <option>Curly or kinky texture</option>
+                  <option>Bundles or closure</option>
+                  <option>Not sure — help me choose</option>
+                </select>
+              </Field>
+              <Field label="City and country" name="location" required error={errors.location}>
+                <input id="location" name="location" autoComplete="address-level2" value={values.location} onChange={update} placeholder="e.g. Lagos, Nigeria" aria-invalid={Boolean(errors.location)} />
+              </Field>
+              <Field label={`Budget in ${currency} (optional)`} name="budget" help="A range is enough.">
+                <input id="budget" name="budget" inputMode="numeric" value={values.budget} onChange={update} placeholder={currency === "NGN" ? "e.g. 100,000–180,000" : "e.g. 150–300"} />
+              </Field>
+              <Field label="Anything important? (optional)" name="notes">
+                <textarea id="notes" name="notes" rows="3" value={values.notes} onChange={update} placeholder="Preferred length, colour or when you need it" />
+              </Field>
+            </div>
+            <label className="quick-upload">
+              <span><ImagePlus size={22} /><strong>Reference image</strong><small>Optional · stays on this device</small></span>
+              <input type="file" accept="image/*" onChange={chooseImage} />
+              <em><Upload size={16} /> {referenceFile ? "Change image" : "Choose image"}</em>
+            </label>
+            {referenceFile ? <div className="quick-upload__preview"><img src={referenceFile.preview} alt="Selected hairstyle reference preview" /><span>{referenceFile.name}</span></div> : null}
+            <div className="honeypot" aria-hidden="true"><label>Website<input name="website" value={values.website} onChange={update} tabIndex="-1" autoComplete="off" /></label></div>
+            <label className="consent-check">
+              <input type="checkbox" name="consent" checked={values.consent} onChange={update} aria-invalid={Boolean(errors.consent)} />
+              <span>I understand this prepares a request summary and does not complete payment. <strong>Required.</strong></span>
+            </label>
+            {errors.consent ? <p className="field__error" role="alert">{errors.consent}</p> : null}
+            <button className="button button--primary button--large button--full" type="submit" disabled={submitting}>
+              <Sparkles size={18} /> {submitting ? "Preparing request…" : "Prepare quick request"}
+            </button>
+            <p className="secure-note"><CheckCircle2 size={17} /> No card or banking details are requested.</p>
+          </form>
+
+          <aside className="quick-order-media">
+            <LoopingVideo src="/videos/wig-styling.mp4" poster="/images/video-posters/wig-styling.webp" label="Black woman fitting and styling a smooth wig" />
+            <div>
+              <p className="eyebrow">Simple by design</p>
+              <h2>Send the idea first.</h2>
+              <p>The finer choices can be confirmed in conversation, without slowing down your first request.</p>
+              <span><Clock3 size={17} /> About two minutes</span>
+              <OrderNotice compact />
+              <small>Inspiration footage from Pexels; not a customer order or a specific product.</small>
+            </div>
+          </aside>
         </div>
       </section>
     </>
   );
-}
-
-const stepTitles = ["What are we creating?", "Choose your texture", "Shape the details", "Show us your inspiration", "Where is it going?", "Review your custom request"];
-const stepDescriptions = ["Start with the hair format that best fits your routine.", "Pick the closest finish. You can refine it with a reference image later.", "These choices help Rosaline understand the look, fit and budget.", "A visual reference can communicate shape, colour and finish quickly.", "Share the destination and timing so availability can be discussed.", "Confirm the summary and add the best contact details for follow-up."];
-
-function ChoiceGrid({ options, value, onSelect, visual = false }) {
-  const visualImages = ["/images/products/long-straight-08.webp", "/images/products/body-wave-11.webp", "/images/products/deep-wave-curly-01.webp", "/images/products/natural-curl-04.webp", "/images/products/kinky-curly-02.webp", "/images/products/loose-curl-03.webp", "/images/editorial/hair-bundles-pink.webp"];
-  return <div className={`choice-grid ${visual ? "choice-grid--visual" : ""}`}>{options.map((option, index) => <button className={value === option ? "is-active" : ""} type="button" onClick={() => onSelect(option)} key={option}>{visual ? <img src={visualImages[index]} alt="" width="260" height="210" /> : null}<span>{option}</span>{value === option ? <Check size={18} /> : null}</button>)}</div>;
-}
-
-function ReviewRow({ label, value }) {
-  return <div><span>{label}</span><strong>{value}</strong></div>;
 }

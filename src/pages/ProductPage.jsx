@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Heart, HelpCircle, MessageCircle, ShieldCheck, Shoppi
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Seo from "../components/Seo";
 import ProductCard from "../components/ProductCard";
+import { VideoFeature } from "../components/LoopingVideo";
 import { Accordion, Price, Quantity, Rating, SectionHeading } from "../components/common";
 import { businessConfig, formatMoney } from "../config/business";
 import { getProductBySlug, products } from "../data/products";
@@ -57,6 +58,7 @@ export default function ProductPage() {
     ["Processing and delivery", `${product.estimatedProcessingTime}. Delivery timing is confirmed for your destination before payment.`],
     ["Returns and exchanges", "Eligibility depends on the confirmed hygiene and custom-order policy. Review the final terms before payment."]
   ];
+  const texturedFinish = /curl|wave|kinky|afro/i.test(`${product.texture} ${product.name}`);
 
   return (
     <>
@@ -87,6 +89,18 @@ export default function ProductPage() {
         </div>
       </section>
       <div className="mobile-buy-bar"><div><small>{product.shortName}</small><strong>{formatMoney(currency === "NGN" ? product.priceNGN : product.priceCAD, currency)}</strong></div><button className="button button--primary" type="button" onClick={add}>Add to cart</button></div>
+      <VideoFeature
+        compact
+        dark
+        src={texturedFinish ? "/videos/natural-curl-care.mp4" : "/videos/wig-styling.mp4"}
+        poster={texturedFinish ? "/images/video-posters/natural-curl-care.webp" : "/images/video-posters/wig-styling.webp"}
+        label={texturedFinish ? "Black woman refreshing and shaping her curls" : "Black woman fitting and styling a smooth wig"}
+        eyebrow="Styling inspiration"
+        title={texturedFinish ? "Texture comes alive in motion." : "A polished fit starts with the finish."}
+        text="This reel is a styling reference. The exact unit, density and movement are confirmed with your selected product."
+        href="/hair-guide"
+        cta="Read the hair guide"
+      />
       <section className="section section--surface"><div className="container"><SectionHeading eyebrow="You may also like" title="Continue the edit" /><div className="product-grid product-grid--four">{related.map((item) => <ProductCard product={item} key={item.id} />)}</div></div></section>
       {recent.length ? <section className="section"><div className="container"><SectionHeading title="Recently viewed" /><div className="product-grid product-grid--four">{recent.map((item) => <ProductCard product={item} key={item.id} />)}</div></div></section> : null}
     </>

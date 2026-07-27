@@ -5,7 +5,7 @@ export const faqGroups = [
       ["Are the prices shown in CAD or NGN?", "Prices are shown in Nigerian naira by default. Use the currency switcher to view the separately listed Canadian-dollar prices."],
       ["Can I switch currencies?", "Yes. Choose CAD or NGN from the header, cart or checkout. Your selection is saved on this device."],
       ["Are all products in stock?", "Availability and processing timing are confirmed with your order before payment."],
-      ["Can I request a style not shown?", "Yes. Use the custom order form to share the style, length, texture, colour and budget you have in mind."]
+      ["Can I request a style not shown?", "Yes. Use the short custom order form to share the closest style, your location and contact details. Length, texture, colour, fit and budget can be confirmed with you after."]
     ]
   },
   {

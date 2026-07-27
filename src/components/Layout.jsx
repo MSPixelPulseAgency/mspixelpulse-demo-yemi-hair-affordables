@@ -25,7 +25,7 @@ function Brand() {
   return (
     <Link className="brand" to="/" aria-label="Yemi Hair Affordables home">
       <span className="brand__mark" aria-hidden="true">
-        <img src="/yemi-hair-logo.png" alt="" width="44" height="44" />
+        <img src="/yemi-hair-mark.png" alt="" width="44" height="44" />
       </span>
       <span className="brand__type"><strong>Yemi Hair</strong><small>Affordables</small></span>
     </Link>
@@ -38,8 +38,8 @@ function CurrencySwitcher({ compact = false }) {
     <label className={`currency ${compact ? "currency--compact" : ""}`}>
       <span className="sr-only">Display currency</span>
       <select value={currency} onChange={(event) => setCurrency(event.target.value)} aria-label="Display currency">
-        <option value="NGN">NGN — ₦</option>
-        <option value="CAD">CAD — $</option>
+        <option value="NGN">{compact ? "NGN" : "NGN — ₦"}</option>
+        <option value="CAD">{compact ? "CAD" : "CAD — $"}</option>
       </select>
     </label>
   );

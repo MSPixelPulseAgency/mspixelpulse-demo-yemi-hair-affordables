@@ -38,7 +38,9 @@ Every post must have a unique slug, date, category, read time, local image/alt t
 
 Never invent awards, certifications, years in business, customer numbers, orders completed, satisfaction rates, reviews, stock levels, delivery guarantees or contact details. The homepage’s 18 styles, 8 collections and 2 currencies are catalogue facts, not customer claims. Do not present photography as an exact supplied unit when it is inspiration/reference imagery.
 
-The checkout creates a local, copyable order summary. Do not claim that a message was sent, payment was taken or an order was received unless a confirmed backend is active. Never request card or banking details.
+The short checkout and two-minute custom form create local, copyable request summaries. Do not claim that a message was sent, payment was taken or an order was received unless a confirmed backend is active. Never request card, banking or full-address details in the first request.
+
+Local Pexels videos are inspiration footage. Keep the visible disclosure that they do not depict a customer order or a specific supplied item, and keep descriptive video labels.
 
 ## SEO and handoff
 

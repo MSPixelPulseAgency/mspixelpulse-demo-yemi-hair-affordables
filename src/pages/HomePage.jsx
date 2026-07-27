@@ -1,6 +1,7 @@
-import { createElement, useEffect, useRef, useState } from "react";
-import { ArrowRight, CircleDollarSign, Globe2, HandHeart, Pause, Play, SlidersHorizontal, Sparkles } from "lucide-react";
+import { createElement } from "react";
+import { ArrowRight, CircleDollarSign, Globe2, HandHeart, SlidersHorizontal, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import LoopingVideo from "../components/LoopingVideo";
 import Seo from "../components/Seo";
 import ProductCard from "../components/ProductCard";
 import { OrderNotice, Reveal, SectionHeading } from "../components/common";
@@ -58,48 +59,6 @@ const videoLooks = [
   }
 ];
 
-function LoopingVideo({ src, poster, label }) {
-  const videoRef = useRef(null);
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      videoRef.current?.pause();
-    }
-  }, []);
-
-  const togglePlayback = () => {
-    if (!videoRef.current) return;
-    if (videoRef.current.paused) {
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-    }
-  };
-
-  return (
-    <>
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster={poster}
-        aria-label={label}
-        onPause={() => setPaused(true)}
-        onPlay={() => setPaused(false)}
-      >
-        <source src={src} type="video/mp4" />
-      </video>
-      <button className="video-toggle" type="button" onClick={togglePlayback} aria-label={`${paused ? "Play" : "Pause"} video: ${label}`}>
-        {paused ? <Play size={16} fill="currentColor" /> : <Pause size={16} fill="currentColor" />}
-      </button>
-    </>
-  );
-}
-
 export default function HomePage() {
   const { currency } = useStore();
   const featured = products.filter((product) => product.featured).slice(0, 8);
@@ -143,7 +102,7 @@ export default function HomePage() {
           <div><strong>{products.length}</strong><span>curated styles</span><small>Across everyday and occasion looks</small></div>
           <div><strong>{collections.length}</strong><span>signature collections</span><small>From soft curls to polished bobs</small></div>
           <div><strong>2</strong><span>display currencies</span><small>NGN by default, CAD when preferred</small></div>
-          <div><strong>1:1</strong><span>custom-order guidance</span><small>A guided request built around your look</small></div>
+          <div><strong>2 min</strong><span>quick custom request</span><small>Share the essentials, confirm the rest later</small></div>
         </div>
       </section>
 
@@ -223,8 +182,8 @@ export default function HomePage() {
 
       <section className="section">
         <div className="container custom-banner">
-          <div><p className="eyebrow">Built around you</p><h2>Can’t find your exact style?</h2><p>Tell Rosaline your preferred texture, length, colour, cap size, budget and delivery location.</p><Link className="button button--primary" to="/custom-order">Start custom order <ArrowRight size={18} /></Link></div>
-          <div className="custom-banner__visual"><img src="/images/editorial/hair-bundles-pink.webp" alt="Hair extension bundles on a soft pink surface" loading="lazy" width="760" height="620" /><span><SlidersHorizontal /> Six guided steps</span></div>
+          <div><p className="eyebrow">Built around you</p><h2>Can’t find your exact style?</h2><p>Share the closest style, your location and contact details. Rosaline can confirm the finer choices with you.</p><Link className="button button--primary" to="/custom-order">Start custom order <ArrowRight size={18} /></Link></div>
+          <div className="custom-banner__visual"><img src="/images/editorial/hair-bundles-pink.webp" alt="Hair extension bundles on a soft pink surface" loading="lazy" width="760" height="620" /><span><SlidersHorizontal /> Quick short form</span></div>
         </div>
       </section>
 
@@ -238,7 +197,7 @@ export default function HomePage() {
       </section>
 
       <section className="newsletter">
-        <div className="container newsletter__grid"><div><p className="eyebrow">Need a closer match?</p><h2>Tell Rosaline exactly what you want.</h2><p>Share the texture, length, colour, lace preference, budget and destination in one guided request.</p></div><div className="newsletter__actions"><Link className="button button--dark" to="/custom-order">Start a custom order <ArrowRight size={18} /></Link><Link className="button button--ghost" to="/hair-guide">Read the hair guide</Link></div></div>
+        <div className="container newsletter__grid"><div><p className="eyebrow">Need a closer match?</p><h2>Send the idea in about two minutes.</h2><p>Share the closest style, location and best contact. Length, lace, fit and final price can be confirmed after.</p></div><div className="newsletter__actions"><Link className="button button--dark" to="/custom-order">Start a custom order <ArrowRight size={18} /></Link><Link className="button button--ghost" to="/hair-guide">Read the hair guide</Link></div></div>
       </section>
     </>
   );

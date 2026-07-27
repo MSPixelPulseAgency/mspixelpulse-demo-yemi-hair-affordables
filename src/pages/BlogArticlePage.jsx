@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import LoopingVideo from "../components/LoopingVideo";
 import Seo from "../components/Seo";
 import { blogPosts, getBlogPost } from "../data/blogPosts";
 import { businessConfig } from "../config/business";
@@ -10,6 +11,13 @@ export default function BlogArticlePage() {
   if (!post) return <Navigate to="/blog" replace />;
 
   const related = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+  const careArticle = post.slug.includes("care");
+  const textureArticle = post.slug.includes("texture");
+  const articleVideo = careArticle
+    ? ["/videos/natural-curl-care.mp4", "/images/video-posters/natural-curl-care.webp", "Black woman gently refreshing and shaping her curls"]
+    : textureArticle
+      ? ["/videos/afro-outdoors.mp4", "/images/video-posters/afro-outdoors.webp", "Black woman wearing a rounded afro outdoors"]
+      : ["/videos/wig-styling.mp4", "/images/video-posters/wig-styling.webp", "Black woman fitting and styling a smooth wig"];
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -34,7 +42,8 @@ export default function BlogArticlePage() {
             <p>{post.dek}</p>
           </div>
           <div className="container article-hero__media">
-            <img src={post.image} alt={post.imageAlt} width="1320" height="760" />
+            <LoopingVideo src={articleVideo[0]} poster={articleVideo[1]} label={articleVideo[2]} />
+            <p className="media-note">Inspiration footage from Pexels; it does not depict a customer order or a specific product.</p>
           </div>
         </header>
 

@@ -29,7 +29,7 @@ export default function OrderSuccessPage() {
             <div className="success-card">
               <div><span>Reference</span><strong>{order.reference}</strong></div>{order.total != null ? <div><span>Items subtotal</span><strong>{formatMoney(order.total, order.currency)}</strong></div> : <div><span>Request type</span><strong>Custom hair</strong></div>}<div><span>Status</span><strong>Ready to share</strong></div>
               <pre>{order.message}</pre>
-              <div className="success-card__actions"><button className="button button--ghost" type="button" onClick={copy}><Clipboard size={18} /> Copy summary</button>{whatsappHref ? <a className="button button--whatsapp" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Send on WhatsApp</a> : <Link className="button button--ghost" to="/contact"><MessageCircle size={18} /> Contact Rosaline</Link>}</div>
+              <div className="success-card__actions"><button className="button button--ghost" type="button" onClick={copy}><Clipboard size={18} /> Copy summary</button>{whatsappHref ? <a className="button button--whatsapp" href={whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={18} /> Send on WhatsApp</a> : <Link className="button button--ghost" to="/contact"><MessageCircle size={18} /> Contact Roseline</Link>}</div>
             </div>
             {!businessConfig.whatsappNumber ? <p className="order-notice"><strong>Next step:</strong> Copy this summary and share it through the contact channel provided by Yemi Hair Affordables. Your order is not confirmed until you receive a reply.</p> : null}
           </>

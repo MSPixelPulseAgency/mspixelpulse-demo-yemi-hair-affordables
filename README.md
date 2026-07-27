@@ -76,7 +76,7 @@ Edit `src/data/products.js`.
 - Do not derive one currency from the other.
 - Keep at least two image paths for card crossfades.
 - Update category and collection slugs carefully because routes depend on them.
-- Confirm availability, processing times and product claims with Rosaline.
+- Confirm availability, processing times and product claims with Roseline.
 
 ## Updating The Hair Edit
 
@@ -90,7 +90,7 @@ Edit `src/data/blogPosts.js`.
 
 ## Brand assets and navigation
 
-The owner-supplied flowing-hair artwork is preserved at `public/yemi-hair-logo.png`. The tightly cropped transparent header mark lives at `public/yemi-hair-mark.png`; the dark-tab-friendly white circular browser icon lives at `public/yemi-hair-favicon.png`.
+The owner-supplied flowing-hair artwork is preserved at `public/yemi-hair-logo.png`. The tightly cropped transparent header mark lives at `public/yemi-hair-mark.png`; the dark-tab-friendly white hair favicon lives at `public/yemi-hair-favicon.png`. Roseline’s supplied About portrait is stored as the optimized `public/images/editorial/roseline-about.webp`.
 
 - Desktop uses the full text navigation.
 - Tablet and mobile use an icon-led drawer.

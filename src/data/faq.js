@@ -12,10 +12,10 @@ export const faqGroups = [
     group: "Hair",
     items: [
       ["Is the hair human hair?", "Each listing describes the intended hair type and finish. Confirm the exact specification for your selected style before payment."],
-      ["Can the wigs be coloured?", "Some human-hair options may be suitable for professional colouring. Ask Rosaline about your chosen style before processing it."],
+      ["Can the wigs be coloured?", "Some human-hair options may be suitable for professional colouring. Ask Roseline about your chosen style before processing it."],
       ["Can I use heat?", "Heat suitability varies by product. If confirmed as human hair, use a heat protectant and a moderate temperature."],
       ["What is the difference between closure and frontal?", "A closure covers a smaller parting area and is often simpler to maintain. A frontal spans more of the hairline and allows more styling flexibility."],
-      ["How do I choose a cap size?", "Measure around your hairline, front to nape and ear to ear. Compare the measurements with the cap guide or ask Rosaline for help."]
+      ["How do I choose a cap size?", "Measure around your hairline, front to nape and ear to ear. Compare the measurements with the cap guide or ask Roseline for help."]
     ]
   },
   {
@@ -32,7 +32,7 @@ export const faqGroups = [
     items: [
       ["Do you deliver within Canada?", "The business intends to support Canadian orders. Exact destinations, fees and timing must be confirmed."],
       ["Do you deliver within Nigeria?", "The business intends to support Nigerian orders. Exact destinations, fees and timing must be confirmed."],
-      ["Is international shipping available?", "Selected international locations may be supported. Contact Rosaline with your city and country for confirmation."],
+      ["Is international shipping available?", "Selected international locations may be supported. Contact Roseline with your city and country for confirmation."],
       ["How long does processing take?", "Your timeline depends on the style, customization and destination. Processing and delivery timing are confirmed before payment."]
     ]
   },

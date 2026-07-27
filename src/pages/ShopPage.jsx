@@ -101,7 +101,7 @@ export default function ShopPage() {
         <aside className="filter-sidebar"><FilterControls filters={filters} setFilters={setFilters} onReset={reset} /></aside>
         <section className="shop-results" aria-labelledby="results-title">
           <div className="results-top"><h2 id="results-title">{filtered.length} {filtered.length === 1 ? "style" : "styles"}</h2><p>Showing prices in {currency} · switch currency in the header</p></div>
-          {filtered.length ? <div className="product-grid product-grid--three">{filtered.map((product) => <ProductCard product={product} key={product.id} />)}</div> : <div className="empty-state empty-state--wide"><Search size={40} /><h2>We couldn’t find that style.</h2><p>Try another search or ask Rosaline for a custom option.</p><button className="button button--primary" type="button" onClick={reset}>Reset filters</button></div>}
+          {filtered.length ? <div className="product-grid product-grid--three">{filtered.map((product) => <ProductCard product={product} key={product.id} />)}</div> : <div className="empty-state empty-state--wide"><Search size={40} /><h2>We couldn’t find that style.</h2><p>Try another search or ask Roseline for a custom option.</p><button className="button button--primary" type="button" onClick={reset}>Reset filters</button></div>}
           <OrderNotice compact />
         </section>
       </div>

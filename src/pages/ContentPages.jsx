@@ -10,9 +10,9 @@ import { faqGroups } from "../data/faq";
 export function AboutPage() {
   return (
     <>
-      <Seo title="About Rosaline" description="Meet Rosaline and learn the simple idea behind Yemi Hair Affordables: stylish hair, fair pricing and personal guidance." path="/about" />
+      <Seo title="About Roseline" description="Meet Roseline and learn the simple idea behind Yemi Hair Affordables: stylish hair, fair pricing and personal guidance." path="/about" />
       <header className="about-hero">
-        <div className="container about-hero__grid"><div><p className="eyebrow">Meet the brand</p><h1>Hair should feel like confidence, not compromise.</h1><p>Yemi Hair Affordables brings together beautiful, confidence-boosting styles with clear choices and personal guidance.</p><Link className="button button--primary" to="/shop">Explore the shop <ArrowRight size={18} /></Link></div><div><img src="/images/editorial/natural-hair-dark.webp" alt="Black woman wearing full natural hair" width="760" height="880" /><span>Selected with care<br /><strong>For everyday confidence</strong></span></div></div>
+        <div className="container about-hero__grid"><div><p className="eyebrow">Meet Roseline</p><h1>Hair should feel like confidence, not compromise.</h1><p>Yemi Hair Affordables brings together beautiful, confidence-boosting styles with clear choices and personal guidance.</p><Link className="button button--primary" to="/shop">Explore the shop <ArrowRight size={18} /></Link></div><div><img src="/images/editorial/roseline-about.webp" alt="Portrait of Roseline" width="634" height="634" /><span>Selected with care<br /><strong>For everyday confidence</strong></span></div></div>
       </header>
       <section className="section"><div className="container story-grid"><div><p className="eyebrow">The simple idea</p><h2>Beautiful options. Clear guidance. A more personal order.</h2></div><div><p>The focus is simple: stylish options, fair pricing, personal guidance and an easier ordering experience. Browse by texture and shape, compare prices in NGN or CAD, or build a custom request when the exact look is not listed.</p><p>Every order is reviewed before payment so the style, specifications, availability and delivery details are clear.</p></div></div></section>
       <VideoFeature
@@ -26,7 +26,7 @@ export function AboutPage() {
         cta="Start a quick request"
       />
       <section className="section section--blush"><div className="container"><SectionHeading eyebrow="What guides the brand" title="A thoughtful kind of affordable" align="center" /><div className="value-grid">{[[HeartHandshake, "Personal support", "Help with texture, length, lace and fit before payment."], [Sparkles, "Style without pressure", "Premium-feeling choices explained in plain language."], [ShieldCheck, "Clear expectations", "Order details and final terms are confirmed before payment."], [Globe2, "Two markets in mind", "A browsing experience designed for Nigeria and Canada."]].map(([Icon, title, text]) => <article key={title}>{createElement(Icon)}<h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
-      <section className="section"><div className="container process-section"><div><p className="eyebrow">How we help</p><h2>From inspiration to confirmation.</h2><p>A straightforward path with room for real questions.</p></div><ol><li><span>01</span><div><h3>Browse the edit</h3><p>Start with product, collection or texture.</p></div></li><li><span>02</span><div><h3>Choose the details</h3><p>Select length, lace, density and cap size.</p></div></li><li><span>03</span><div><h3>Ask before ordering</h3><p>Use the guide or contact Rosaline for help.</p></div></li><li><span>04</span><div><h3>Confirm and fulfil</h3><p>Pricing, payment and delivery are confirmed directly.</p></div></li></ol></div></section>
+      <section className="section"><div className="container process-section"><div><p className="eyebrow">How we help</p><h2>From inspiration to confirmation.</h2><p>A straightforward path with room for real questions.</p></div><ol><li><span>01</span><div><h3>Browse the edit</h3><p>Start with product, collection or texture.</p></div></li><li><span>02</span><div><h3>Choose the details</h3><p>Select length, lace, density and cap size.</p></div></li><li><span>03</span><div><h3>Ask before ordering</h3><p>Use the guide or contact Roseline for help.</p></div></li><li><span>04</span><div><h3>Confirm and fulfil</h3><p>Pricing, payment and delivery are confirmed directly.</p></div></li></ol></div></section>
       <section className="final-cta"><div className="container"><p className="eyebrow">Ready when you are</p><h2>Find your next look—or describe it to us.</h2><div><Link className="button button--light" to="/shop">Shop hair</Link><Link className="button button--outline-light" to="/custom-order">Request a custom style</Link></div></div></section>
     </>
   );
@@ -65,7 +65,7 @@ export function FAQPage() {
   return (
     <>
       <Seo title="Frequently Asked Questions" description="Answers about Yemi Hair Affordables pricing, currencies, hair, ordering, delivery and returns." path="/faq" schema={schema} />
-      <header className="page-hero"><div className="container"><p className="eyebrow">Helpful answers</p><h1>Questions are part of choosing well.</h1><p>Start here for the basics, then ask Rosaline about your exact style.</p></div></header>
+      <header className="page-hero"><div className="container"><p className="eyebrow">Helpful answers</p><h1>Questions are part of choosing well.</h1><p>Start here for the basics, then ask Roseline about your exact style.</p></div></header>
       <section className="section"><div className="container faq-layout"><aside><h2>Browse topics</h2>{faqGroups.map((group) => <a href={`#faq-${group.group.toLowerCase()}`} key={group.group}>{group.group}</a>)}<div><MessageCircle /><h3>Still deciding?</h3><p>Send your product, length and questions together.</p><Link className="text-link" to="/contact">Contact support <ArrowRight size={16} /></Link></div></aside><div>{faqGroups.map((group) => <section className="faq-group" id={`faq-${group.group.toLowerCase()}`} key={group.group}><p className="eyebrow">{group.group}</p><h2>{group.group} questions</h2><Accordion items={group.items} /></section>)}</div></div></section>
     </>
   );
@@ -103,7 +103,7 @@ export function ContactPage() {
   };
   return (
     <>
-      <Seo title="Contact & Hair Support" description="Ask Rosaline about wig length, texture, lace, cap size, custom orders, Canada or Nigeria delivery." path="/contact" />
+      <Seo title="Contact & Hair Support" description="Ask Roseline about wig length, texture, lace, cap size, custom orders, Canada or Nigeria delivery." path="/contact" />
       <header className="contact-hero"><div className="container"><p className="eyebrow">Personal support</p><h1>Let’s find the right hair for you.</h1><p>Share the style you like and the details you are unsure about. No pressure, no complicated wording.</p></div></header>
       <section className="section section--tight"><div className="container contact-layout">
         <div className="contact-details"><p className="eyebrow">Order support</p><h2>Ask with confidence.</h2><p>Use the guided order tools to keep every product, fit and delivery detail together.</p>
@@ -180,7 +180,7 @@ export function NotFoundPage() {
   return (
     <>
       <Seo title="Page Not Found" description="Return to the Yemi Hair Affordables shop or homepage." path="/404" />
-      <section className="not-found container"><div><p className="eyebrow">404 — lost strand</p><h1>This page slipped out of place.</h1><p>The look you want may still be in the shop—or Rosaline can help you request it.</p><div><Link className="button button--primary" to="/shop">Shop hair</Link><Link className="button button--ghost" to="/">Return home</Link></div></div><img src="/images/products/kinky-curly-02.webp" alt="Black woman wearing full curly hair" width="620" height="760" /></section>
+      <section className="not-found container"><div><p className="eyebrow">404 — lost strand</p><h1>This page slipped out of place.</h1><p>The look you want may still be in the shop—or Roseline can help you request it.</p><div><Link className="button button--primary" to="/shop">Shop hair</Link><Link className="button button--ghost" to="/">Return home</Link></div></div><img src="/images/products/kinky-curly-02.webp" alt="Black woman wearing full curly hair" width="620" height="760" /></section>
     </>
   );
 }

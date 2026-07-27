@@ -19,7 +19,7 @@ Confirm the remote and branch before every change. Never deploy from a nearby em
 - Output: `dist`
 - Root: `./`
 
-`vercel.json` contains the SPA rewrite required for direct refreshes of product, collection and blog article routes. Static exclusions include the local images, videos, transparent header mark and white circular `yemi-hair-favicon.png`.
+`vercel.json` contains the SPA rewrite required for direct refreshes of product, collection and blog article routes. Static exclusions include the local images, videos, transparent header mark and white transparent `yemi-hair-favicon.png`.
 
 ## Environment
 

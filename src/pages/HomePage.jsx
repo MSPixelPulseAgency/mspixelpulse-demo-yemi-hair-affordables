@@ -83,7 +83,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="container hero__grid">
           <div className="hero__content">
-            <p className="eyebrow">Selected with care by Rosaline</p>
+            <p className="eyebrow">Selected with care by Roseline</p>
             <h1>Your perfect hair, <em>without the luxury markup.</em></h1>
             <p>Shop beautiful wigs and human-hair styles selected to help you look confident, polished and effortlessly you.</p>
             <div className="hero__actions"><Link className="button button--primary" to="/shop">Shop hair <ArrowRight size={18} /></Link><Link className="button button--ghost" to="/custom-order">Place a custom order</Link></div>
@@ -182,7 +182,7 @@ export default function HomePage() {
 
       <section className="section">
         <div className="container custom-banner">
-          <div><p className="eyebrow">Built around you</p><h2>Can’t find your exact style?</h2><p>Share the closest style, your location and contact details. Rosaline can confirm the finer choices with you.</p><Link className="button button--primary" to="/custom-order">Start custom order <ArrowRight size={18} /></Link></div>
+          <div><p className="eyebrow">Built around you</p><h2>Can’t find your exact style?</h2><p>Share the closest style, your location and contact details. Roseline can confirm the finer choices with you.</p><Link className="button button--primary" to="/custom-order">Start custom order <ArrowRight size={18} /></Link></div>
           <div className="custom-banner__visual"><img src="/images/editorial/hair-bundles-pink.webp" alt="Hair extension bundles on a soft pink surface" loading="lazy" width="760" height="620" /><span><SlidersHorizontal /> Quick short form</span></div>
         </div>
       </section>

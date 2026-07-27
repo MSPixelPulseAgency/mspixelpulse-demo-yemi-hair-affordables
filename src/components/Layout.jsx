@@ -69,7 +69,7 @@ function SearchOverlay({ open, onClose }) {
       <div ref={ref} className="search-overlay__panel" role="dialog" aria-modal="true" aria-labelledby="search-title">
         <div className="search-overlay__top"><h2 id="search-title">Find your next look</h2><button className="icon-button" type="button" onClick={onClose} aria-label="Close search"><X /></button></div>
         <label className="search-field"><Search size={20} /><span className="sr-only">Search products</span><input autoComplete="off" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search by style, texture or length…" /></label>
-        {query.length > 1 && !results.length ? <p className="empty-inline">We couldn’t find that style. Try another search or ask Rosaline for a custom option.</p> : null}
+        {query.length > 1 && !results.length ? <p className="empty-inline">We couldn’t find that style. Try another search or ask Roseline for a custom option.</p> : null}
         <div className="search-results">
           {results.map((product) => (
             <Link to={`/shop/${product.slug}`} key={product.id} onClick={onClose}>
@@ -187,7 +187,7 @@ function Footer() {
   return (
     <footer className="site-footer" id="site-footer">
       <div className="container footer-grid">
-        <div className="footer-brand"><Brand /><p>Beautiful hair selected with care by Rosaline. Premium feeling, fair pricing and personal guidance.</p>{socialLinks.length ? <div className="socials">{socialLinks.map(([href, label, Icon]) => <a href={href} aria-label={label} key={label} target="_blank" rel="noreferrer"><Icon /></a>)}</div> : null}</div>
+        <div className="footer-brand"><Brand /><p>Beautiful hair selected with care by Roseline. Premium feeling, fair pricing and personal guidance.</p>{socialLinks.length ? <div className="socials">{socialLinks.map(([href, label, Icon]) => <a href={href} aria-label={label} key={label} target="_blank" rel="noreferrer"><Icon /></a>)}</div> : null}</div>
         <nav className="footer-links" aria-label="Footer navigation">
           <div><h2>Shop</h2><Link to="/shop">All hair</Link><Link to="/collections/bob-wigs">Bob wigs</Link><Link to="/collections/curly-hair">Curly hair</Link><Link to="/collections/straight-hair">Straight hair</Link><Link to="/custom-order">Custom order</Link></div>
           <div><h2>Explore & care</h2><Link to="/blog">The Hair Edit</Link><Link to="/hair-guide">Hair guide</Link><Link to="/faq">FAQs</Link><Link to="/contact">Contact</Link><Link to="/shipping-returns">Shipping & returns</Link></div>

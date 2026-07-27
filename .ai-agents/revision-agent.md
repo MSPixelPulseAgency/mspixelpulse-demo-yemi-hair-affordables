@@ -10,7 +10,7 @@ Confirm the active path is `/Users/mahak/Documents/Yemi Hair Affordables`, the r
 - The hamburger drawer is only for tablet/mobile and each menu item uses a Lucide icon.
 - The header is glassy but non-sticky and scrolls away normally.
 - Mobile shopping routes show a separate, uncropped NGN/CAD control; content routes do not.
-- `public/yemi-hair-logo.png` is the untouched owner-supplied source; `public/yemi-hair-mark.png` is the cropped transparent header mark; `public/yemi-hair-favicon.png` is the white circular dark-tab favicon.
+- `public/yemi-hair-logo.png` is the untouched owner-supplied source; `public/yemi-hair-mark.png` is the cropped transparent header mark; `public/yemi-hair-favicon.png` is the white transparent dark-tab favicon; `public/images/editorial/roseline-about.webp` is Roseline’s optimized owner-supplied About portrait.
 - NGN is the fresh-visitor default and an explicit CAD/NGN choice persists.
 - Primary shopping and content pages use local Pexels-sourced videos through `src/components/LoopingVideo.jsx`, with controls and reduced-motion handling.
 - Keep `/custom-order` and `/checkout` short. Do not restore the former six-step custom-order wizard or request full address/payment details before follow-up.

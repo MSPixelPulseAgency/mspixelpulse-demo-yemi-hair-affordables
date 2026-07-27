@@ -89,7 +89,7 @@ export default function BlogPage() {
 
         <section className="section section--blush">
           <div className="container blog-cta">
-            <div><p className="eyebrow">Need a personal recommendation?</p><h2>Turn the inspiration into your own request.</h2><p>Share your reference, preferred texture, length, cap size, budget and location with Rosaline.</p></div>
+            <div><p className="eyebrow">Need a personal recommendation?</p><h2>Turn the inspiration into your own request.</h2><p>Share your reference, preferred texture, length, cap size, budget and location with Roseline.</p></div>
             <Link className="button button--dark" to="/custom-order">Start a custom order <ArrowRight size={17} /></Link>
           </div>
         </section>

@@ -33,7 +33,7 @@ export default function CartPage() {
                 <h2>Order summary</h2>
                 <div><span>Items ({cart.reduce((sum, item) => sum + item.quantity, 0)})</span><strong>{formatMoney(cartTotal, currency)}</strong></div>
                 <div><span>Delivery</span><strong>Confirmed with order</strong></div>
-                <label>Delivery or order note<textarea rows="3" placeholder="Optional note for Rosaline"></textarea></label>
+                <label>Delivery or order note<textarea rows="3" placeholder="Optional note for Roseline"></textarea></label>
                 <div className="order-card__total"><span>Items subtotal</span><strong>{formatMoney(cartTotal, currency)}</strong></div>
                 <p>Final pricing, payment and delivery details will be confirmed before fulfilment.</p>
                 <Link className="button button--primary button--full" to="/checkout">Continue to checkout <ArrowRight size={18} /></Link>

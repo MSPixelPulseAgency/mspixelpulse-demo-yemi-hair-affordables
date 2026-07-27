@@ -1,6 +1,6 @@
 export const businessConfig = {
   name: "Yemi Hair Affordables",
-  owner: "Rosaline",
+  owner: "Roseline",
   tagline: "Beautiful hair. Fair prices.",
   email: import.meta.env.VITE_BUSINESS_EMAIL || "",
   phone: import.meta.env.VITE_BUSINESS_PHONE || "",

@@ -2,12 +2,12 @@
 
 ## Voice and audience
 
-Write for Yemi Hair Affordables in warm, direct, polished English. Rosaline selects the hair; customers are primarily in Nigeria and Canada. Use short paragraphs, compact headings and practical guidance. Respect Black hair, texture and beauty without stereotypes.
+Write for Yemi Hair Affordables in warm, direct, polished English. Roseline selects the hair; customers are primarily in Nigeria and Canada. Use short paragraphs, compact headings and practical guidance. Respect Black hair, texture and beauty without stereotypes.
 
 ## Confirmed content
 
 - Brand: Yemi Hair Affordables
-- Owner/curator: Rosaline
+- Owner/curator: Roseline
 - Context: Nigeria, Canada and selected international locations
 - NGN is the default display currency; CAD is optional
 - Catalogue prices are stored separately, never converted in the browser

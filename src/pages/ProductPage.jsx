@@ -83,7 +83,7 @@ export default function ProductPage() {
           <OptionButtons label="Cap size" values={product.capSizes} value={options.capSize} onChange={(value) => setOption("capSize", value)} />
           <div className="product-buy-row"><Quantity value={quantity} onChange={setQuantity} /><button className="button button--primary" type="button" onClick={add}><ShoppingBag size={18} /> Add to cart</button><button className={`icon-button wishlist-large ${wishlist.includes(product.id) ? "is-active" : ""}`} type="button" onClick={() => toggleWishlist(product.id)} aria-label="Toggle wishlist"><Heart fill={wishlist.includes(product.id) ? "currentColor" : "none"} /></button></div>
           <button className="button button--dark button--full" type="button" onClick={buyNow}>Order this style</button>
-          <Link className="button button--whatsapp button--full" to="/contact"><MessageCircle size={18} /> Ask Rosaline a question</Link>
+          <Link className="button button--whatsapp button--full" to="/contact"><MessageCircle size={18} /> Ask Roseline a question</Link>
           <div className="service-points"><p><Truck /><span><strong>Processing and delivery</strong>Timing confirmed with your order</span></p><p><ShieldCheck /><span><strong>No card details collected</strong>Payment method confirmed securely later</span></p><p><HelpCircle /><span><strong>Need help choosing?</strong>Use the hair guide or contact page</span></p></div>
           <Accordion items={details} allowMultiple />
         </div>

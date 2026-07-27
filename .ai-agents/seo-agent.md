@@ -2,12 +2,12 @@
 
 ## Brand and canonical domain
 
-Yemi Hair Affordables is a live wig and human-hair catalogue selected by Rosaline for customers in Nigeria, Canada and selected international locations.
+Yemi Hair Affordables is a live wig and human-hair catalogue selected by Roseline for customers in Nigeria, Canada and selected international locations.
 
 - Canonical production domain: `https://yemi-hair.vercel.app`
 - Organization name: Yemi Hair Affordables
 - Production header logo: `/yemi-hair-mark.png`
-- White circular browser favicon: `/yemi-hair-favicon.png`
+- White transparent browser favicon: `/yemi-hair-favicon.png`
 - Default currency language: NGN with optional CAD display
 
 A former long demo-domain alias is retired. Never add legacy Vercel aliases to metadata, copy, sitemap, documentation or structured data.

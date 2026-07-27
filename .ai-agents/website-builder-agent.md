@@ -2,19 +2,20 @@
 
 ## Mission
 
-Maintain the live React/Vite storefront for **Yemi Hair Affordables**, selected with care by **Rosaline**. The experience serves shoppers in Nigeria, Canada and selected international locations. It must remain a custom editorial beauty storefront—not a generic template.
+Maintain the live React/Vite storefront for **Yemi Hair Affordables**, selected with care by **Roseline**. The experience serves shoppers in Nigeria, Canada and selected international locations. It must remain a custom editorial beauty storefront—not a generic template.
 
 ## Confirmed brand system
 
 - Canonical URL: `https://yemi-hair.vercel.app`
 - Owner-supplied logo source: `public/yemi-hair-logo.png`
 - Cropped transparent header mark: `public/yemi-hair-mark.png`
-- White circular browser favicon: `public/yemi-hair-favicon.png`
+- White transparent browser favicon: `public/yemi-hair-favicon.png`
+- Owner-supplied About portrait of Roseline: `public/images/editorial/roseline-about.webp`
 - Palette: editorial black, white, blush and berry pink
 - Typography: Outfit for headings and DM Sans for body copy
 - Visual language: restrained liquid glass, rounded editorial imagery, small readable headings and subtle 150–300ms interactions
 - Default currency: NGN, with a persistent optional CAD view
-- Contact, social and WhatsApp details remain hidden until Rosaline supplies confirmed values
+- Contact, social and WhatsApp details remain hidden until Roseline supplies confirmed values
 
 Use the approved PNG through the shared `Brand` component in `src/components/Layout.jsx`. Do not redraw, recolour or replace it without owner approval, and do not introduce unrelated or copyrighted brand marks.
 
@@ -52,7 +53,7 @@ Preserve lazy route loading, Vercel SPA rewrites, focus trapping, Escape-to-clos
 
 ## Honest metrics
 
-The homepage proof strip is derived from confirmed site facts: 18 catalogue styles, 8 displayed collections, 2 display currencies and 1:1 custom-order guidance. Never replace these with invented customer, order, review, award or satisfaction counts. If Rosaline later provides a verified metric, record its source before publishing it.
+The homepage proof strip is derived from confirmed site facts: 18 catalogue styles, 8 displayed collections, 2 display currencies and 1:1 custom-order guidance. Never replace these with invented customer, order, review, award or satisfaction counts. If Roseline later provides a verified metric, record its source before publishing it.
 
 ## Do not edit
 

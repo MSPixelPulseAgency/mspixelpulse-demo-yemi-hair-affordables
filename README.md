@@ -90,7 +90,7 @@ Edit `src/data/blogPosts.js`.
 
 ## Brand assets and navigation
 
-The owner-supplied flowing-hair artwork is preserved at `public/yemi-hair-logo.png`. The tightly cropped transparent production mark and browser icon live at `public/yemi-hair-mark.png`.
+The owner-supplied flowing-hair artwork is preserved at `public/yemi-hair-logo.png`. The tightly cropped transparent header mark lives at `public/yemi-hair-mark.png`; the dark-tab-friendly white circular browser icon lives at `public/yemi-hair-favicon.png`.
 
 - Desktop uses the full text navigation.
 - Tablet and mobile use an icon-led drawer.

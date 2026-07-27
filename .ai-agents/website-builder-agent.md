@@ -8,7 +8,8 @@ Maintain the live React/Vite storefront for **Yemi Hair Affordables**, selected 
 
 - Canonical URL: `https://yemi-hair.vercel.app`
 - Owner-supplied logo source: `public/yemi-hair-logo.png`
-- Cropped transparent production logo and favicon: `public/yemi-hair-mark.png`
+- Cropped transparent header mark: `public/yemi-hair-mark.png`
+- White circular browser favicon: `public/yemi-hair-favicon.png`
 - Palette: editorial black, white, blush and berry pink
 - Typography: Outfit for headings and DM Sans for body copy
 - Visual language: restrained liquid glass, rounded editorial imagery, small readable headings and subtle 150–300ms interactions

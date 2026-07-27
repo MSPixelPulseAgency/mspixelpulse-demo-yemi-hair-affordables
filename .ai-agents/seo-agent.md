@@ -6,7 +6,8 @@ Yemi Hair Affordables is a live wig and human-hair catalogue selected by Rosalin
 
 - Canonical production domain: `https://yemi-hair.vercel.app`
 - Organization name: Yemi Hair Affordables
-- Production logo and favicon: `/yemi-hair-mark.png`
+- Production header logo: `/yemi-hair-mark.png`
+- White circular browser favicon: `/yemi-hair-favicon.png`
 - Default currency language: NGN with optional CAD display
 
 A former long demo-domain alias is retired. Never add legacy Vercel aliases to metadata, copy, sitemap, documentation or structured data.

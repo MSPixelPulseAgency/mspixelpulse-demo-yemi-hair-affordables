@@ -90,7 +90,7 @@ Edit `src/data/blogPosts.js`.
 
 ## Brand assets and navigation
 
-The original female-profile SVG mark lives at `public/yemi-hair-logo.svg` and the related favicon at `public/favicon.svg`.
+The approved flowing-hair logo supplied by the owner lives at `public/yemi-hair-logo.png` and is also used as the browser icon.
 
 - Desktop uses the full text navigation.
 - Tablet and mobile use an icon-led drawer.

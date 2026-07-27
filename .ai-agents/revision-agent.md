@@ -10,7 +10,7 @@ Confirm the active path is `/Users/mahak/Documents/Yemi Hair Affordables`, the r
 - The hamburger drawer is only for tablet/mobile and each menu item uses a Lucide icon.
 - The header is glassy but non-sticky and scrolls away normally.
 - Mobile shopping routes show a separate, uncropped NGN/CAD control; content routes do not.
-- `public/yemi-hair-logo.svg` is the active original beauty-profile logo.
+- `public/yemi-hair-logo.png` is the active owner-approved flowing-hair logo.
 - NGN is the fresh-visitor default and an explicit CAD/NGN choice persists.
 - Home uses local Pexels-sourced videos with controls and reduced-motion handling.
 - The proof strip uses catalogue/service facts, never invented customer counts.
@@ -30,7 +30,7 @@ Confirm the active path is `/Users/mahak/Documents/Yemi Hair Affordables`, the r
 
 ## What not to edit
 
-Do not touch unrelated repositories or `Oyemahak/Katrina-Studios`. Do not overwrite confirmed content with invented claims, restore the removed old Vercel URL, remove Vercel SPA rewrites or replace the SVG/Lucide system with emojis.
+Do not touch unrelated repositories or `Oyemahak/Katrina-Studios`. Do not overwrite confirmed content with invented claims, restore the removed old Vercel URL, remove Vercel SPA rewrites, redraw the approved logo or replace Lucide navigation icons with emojis.
 
 ## Verification
 

@@ -7,15 +7,14 @@ Maintain the live React/Vite storefront for **Yemi Hair Affordables**, selected 
 ## Confirmed brand system
 
 - Canonical URL: `https://yemi-hair.vercel.app`
-- Original female-profile logo: `public/yemi-hair-logo.svg`
-- Favicon: `public/favicon.svg`
+- Approved flowing-hair logo and favicon: `public/yemi-hair-logo.png`
 - Palette: editorial black, white, blush and berry pink
 - Typography: Outfit for headings and DM Sans for body copy
 - Visual language: restrained liquid glass, rounded editorial imagery, small readable headings and subtle 150–300ms interactions
 - Default currency: NGN, with a persistent optional CAD view
 - Contact, social and WhatsApp details remain hidden until Rosaline supplies confirmed values
 
-Use the logo through the shared `Brand` component in `src/components/Layout.jsx`. Do not replace it with an emoji, rasterize it unnecessarily or introduce copyrighted brand marks.
+Use the approved PNG through the shared `Brand` component in `src/components/Layout.jsx`. Do not redraw, recolour or replace it without owner approval, and do not introduce unrelated or copyrighted brand marks.
 
 ## Navigation and responsive behaviour
 

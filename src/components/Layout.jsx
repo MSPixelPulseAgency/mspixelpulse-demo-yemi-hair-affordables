@@ -24,7 +24,9 @@ const nav = [
 function Brand() {
   return (
     <Link className="brand" to="/" aria-label="Yemi Hair Affordables home">
-      <img className="brand__mark" src="/yemi-hair-logo.svg" alt="" width="44" height="44" />
+      <span className="brand__mark" aria-hidden="true">
+        <img src="/yemi-hair-logo.png" alt="" width="44" height="44" />
+      </span>
       <span className="brand__type"><strong>Yemi Hair</strong><small>Affordables</small></span>
     </Link>
   );

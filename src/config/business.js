@@ -13,7 +13,7 @@ export const businessConfig = {
   supportedCurrencies: ["CAD", "NGN"],
   orderEmailEnabled: import.meta.env.VITE_ENABLE_EMAIL_ORDERS === "true",
   whatsappOrdersEnabled: import.meta.env.VITE_ENABLE_WHATSAPP_ORDERS !== "false",
-  siteUrl: import.meta.env.VITE_SITE_URL || "https://mspixelpulse-demo-yemi-hair-affordables.vercel.app",
+  siteUrl: import.meta.env.VITE_SITE_URL || "https://mspixelpulse-demo-yemi-hair-afforda.vercel.app",
   orderEmailEndpoint: import.meta.env.VITE_ORDER_EMAIL_ENDPOINT || "",
   notice: "All product names, prices, availability, reviews and shipping estimates are demo content and must be confirmed by Rosaline before launch."
 };

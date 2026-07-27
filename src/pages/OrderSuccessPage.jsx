@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CheckCircle2, Clipboard, MessageCircle, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import Seo from "../components/Seo";
@@ -7,10 +7,9 @@ import { useStore } from "../context/StoreContext";
 
 export default function OrderSuccessPage() {
   const { setToast } = useStore();
-  const [order, setOrder] = useState(null);
-  useEffect(() => {
-    try { setOrder(JSON.parse(localStorage.getItem("yha-latest-order") || "null")); } catch { setOrder(null); }
-  }, []);
+  const [order] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("yha-latest-order") || "null"); } catch { return null; }
+  });
   const copy = async () => {
     if (!order) return;
     await navigator.clipboard.writeText(order.message);

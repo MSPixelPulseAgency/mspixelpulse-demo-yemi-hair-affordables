@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useParams } from "react-router-dom";
 import Layout from "./components/Layout";
 import { AboutPage, ContactPage, FAQPage, HairGuidePage, NotFoundPage, PolicyPage } from "./pages/ContentPages";
 
@@ -25,6 +25,11 @@ function LoadingPage() {
   return <div className="page-loader" role="status"><span></span><p>Preparing the next look…</p></div>;
 }
 
+function ProductRoute() {
+  const { slug } = useParams();
+  return <ProductPage key={slug} />;
+}
+
 export default function App() {
   return (
     <>
@@ -34,7 +39,7 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="shop" element={<ShopPage />} />
-            <Route path="shop/:slug" element={<ProductPage />} />
+            <Route path="shop/:slug" element={<ProductRoute />} />
             <Route path="collections" element={<CollectionsPage />} />
             <Route path="collections/:slug" element={<CollectionsPage />} />
             <Route path="custom-order" element={<CustomOrderPage />} />

@@ -15,20 +15,16 @@ export default function ProductPage() {
   const { addToCart, currency, wishlist, toggleWishlist, rememberProduct, recentlyViewed } = useStore();
   const [activeImage, setActiveImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [options, setOptions] = useState({});
+  const [options, setOptions] = useState(() => product ? ({
+    length: product.availableLengths[0],
+    laceType: product.laceTypes[0],
+    density: product.densityOptions[0],
+    capSize: product.capSizes[1],
+    colour: product.colour
+  }) : {});
 
   useEffect(() => {
-    if (product) {
-      rememberProduct(product.id);
-      setOptions({
-        length: product.availableLengths[0],
-        laceType: product.laceTypes[0],
-        density: product.densityOptions[0],
-        capSize: product.capSizes[1],
-        colour: product.colour
-      });
-      setActiveImage(0);
-    }
+    if (product) rememberProduct(product.id);
   }, [product?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const schema = useMemo(() => product ? ({

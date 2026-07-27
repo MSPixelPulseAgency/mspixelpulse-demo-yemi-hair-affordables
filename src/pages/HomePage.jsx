@@ -138,6 +138,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="catalogue-proof" aria-label="Yemi Hair catalogue highlights">
+        <div className="container catalogue-proof__grid">
+          <div><strong>{products.length}</strong><span>curated styles</span><small>Across everyday and occasion looks</small></div>
+          <div><strong>{collections.length}</strong><span>signature collections</span><small>From soft curls to polished bobs</small></div>
+          <div><strong>2</strong><span>display currencies</span><small>NGN by default, CAD when preferred</small></div>
+          <div><strong>1:1</strong><span>custom-order guidance</span><small>A guided request built around your look</small></div>
+        </div>
+      </section>
+
       <section className="section video-showcase">
         <div className="container">
           <SectionHeading eyebrow="Hair in motion" title="See the texture, shape and finish" text="Short inspiration reels make it easier to compare movement before you choose a style or send a custom request." action={<Link className="text-link" to="/custom-order">Request a similar look <ArrowRight size={16} /></Link>} />

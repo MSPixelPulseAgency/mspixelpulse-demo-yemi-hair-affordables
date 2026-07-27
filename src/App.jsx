@@ -11,6 +11,8 @@ const CustomOrderPage = lazy(() => import("./pages/CustomOrderPage"));
 const CartPage = lazy(() => import("./pages/CartPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const OrderSuccessPage = lazy(() => import("./pages/OrderSuccessPage"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogArticlePage = lazy(() => import("./pages/BlogArticlePage"));
 
 function RouteEffects() {
   const location = useLocation();
@@ -48,6 +50,8 @@ export default function App() {
             <Route path="order-success" element={<OrderSuccessPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="hair-guide" element={<HairGuidePage />} />
+            <Route path="blog" element={<BlogPage />} />
+            <Route path="blog/:slug" element={<BlogArticlePage />} />
             <Route path="faq" element={<FAQPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="privacy" element={<PolicyPage type="privacy" />} />

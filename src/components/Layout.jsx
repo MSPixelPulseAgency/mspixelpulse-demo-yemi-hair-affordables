@@ -1,5 +1,8 @@
 import { useCallback, useRef, useState } from "react";
-import { Facebook, Heart, Instagram, Menu, MessageCircle, Search, ShoppingBag, X } from "lucide-react";
+import {
+  BookOpen, ChevronRight, CircleUserRound, Facebook, Heart, House, Instagram, LayoutGrid,
+  Menu, MessageCircle, Newspaper, Search, ShoppingBag, WandSparkles, X
+} from "lucide-react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { businessConfig, formatMoney } from "../config/business";
 import { products } from "../data/products";
@@ -8,14 +11,21 @@ import { useFocusTrap } from "../hooks/useFocusTrap";
 import { Quantity } from "./common";
 
 const nav = [
-  ["Home", "/"], ["Shop", "/shop"], ["Collections", "/collections"], ["Custom Order", "/custom-order"],
-  ["Hair Guide", "/hair-guide"], ["About", "/about"], ["Contact", "/contact"]
+  { label: "Home", path: "/", icon: House, desktop: true },
+  { label: "Shop", path: "/shop", icon: ShoppingBag, desktop: true },
+  { label: "Collections", path: "/collections", icon: LayoutGrid, desktop: true },
+  { label: "Custom Order", path: "/custom-order", icon: WandSparkles, desktop: true },
+  { label: "Hair Guide", path: "/hair-guide", icon: BookOpen, desktop: true },
+  { label: "Blog", path: "/blog", icon: Newspaper, desktop: true },
+  { label: "About", path: "/about", icon: CircleUserRound, desktop: false },
+  { label: "Contact", path: "/contact", icon: MessageCircle, desktop: false }
 ];
 
 function Brand() {
   return (
     <Link className="brand" to="/" aria-label="Yemi Hair Affordables home">
-      <span>Yemi Hair</span><small>Affordables</small>
+      <img className="brand__mark" src="/yemi-hair-logo.svg" alt="" width="44" height="44" />
+      <span className="brand__type"><strong>Yemi Hair</strong><small>Affordables</small></span>
     </Link>
   );
 }
@@ -81,7 +91,13 @@ function MobileMenu({ open, onClose }) {
         <div className="drawer__top"><Brand /><button className="icon-button" type="button" onClick={onClose} aria-label="Close menu"><X /></button></div>
         <h2 className="sr-only" id="mobile-menu-title">Site menu</h2>
         <nav className="mobile-nav" aria-label="Site navigation">
-          {nav.map(([label, path]) => <NavLink key={path} to={path} onClick={onClose}>{label}</NavLink>)}
+          {nav.map(({ label, path, icon: Icon }) => (
+            <NavLink key={path} to={path} onClick={onClose}>
+              <Icon className="mobile-nav__icon" size={19} aria-hidden="true" />
+              <span>{label}</span>
+              <ChevronRight className="mobile-nav__arrow" size={17} aria-hidden="true" />
+            </NavLink>
+          ))}
         </nav>
         <div className="drawer__footer"><CurrencySwitcher /><p>{businessConfig.locationNote}</p></div>
       </aside>
@@ -140,6 +156,9 @@ function Header() {
             <button className="menu-trigger" type="button" onClick={() => setMenuOpen(true)} aria-label="Open site menu"><Menu size={20} /><span>Menu</span></button>
           </div>
           <Brand />
+          <nav className="desktop-nav" aria-label="Primary navigation">
+            {nav.filter((item) => item.desktop).map(({ label, path }) => <NavLink key={path} to={path}>{label}</NavLink>)}
+          </nav>
           <div className="header-actions">
             <CurrencySwitcher compact />
             <button className="icon-button" type="button" onClick={() => setSearchOpen(true)} aria-label="Search products"><Search /></button>
@@ -169,7 +188,7 @@ function Footer() {
         <div className="footer-brand"><Brand /><p>Beautiful hair selected with care by Rosaline. Premium feeling, fair pricing and personal guidance.</p>{socialLinks.length ? <div className="socials">{socialLinks.map(([href, label, Icon]) => <a href={href} aria-label={label} key={label} target="_blank" rel="noreferrer"><Icon /></a>)}</div> : null}</div>
         <nav className="footer-links" aria-label="Footer navigation">
           <div><h2>Shop</h2><Link to="/shop">All hair</Link><Link to="/collections/bob-wigs">Bob wigs</Link><Link to="/collections/curly-hair">Curly hair</Link><Link to="/collections/straight-hair">Straight hair</Link><Link to="/custom-order">Custom order</Link></div>
-          <div><h2>Customer care</h2><Link to="/hair-guide">Hair guide</Link><Link to="/faq">FAQs</Link><Link to="/contact">Contact</Link><Link to="/shipping-returns">Shipping & returns</Link><Link to="/cart">Cart</Link></div>
+          <div><h2>Explore & care</h2><Link to="/blog">The Hair Edit</Link><Link to="/hair-guide">Hair guide</Link><Link to="/faq">FAQs</Link><Link to="/contact">Contact</Link><Link to="/shipping-returns">Shipping & returns</Link></div>
           <div><h2>Policies</h2><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link>{businessConfig.email || businessConfig.phone ? <p>{businessConfig.email}{businessConfig.email && businessConfig.phone ? <br /> : null}{businessConfig.phone}</p> : null}<p>Prices are shown in NGN by default. Switch to CAD anytime; order details are confirmed before fulfilment.</p></div>
         </nav>
       </div>

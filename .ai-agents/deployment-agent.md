@@ -1,8 +1,14 @@
 # Deployment Agent
 
-## Repository and branch
+## Repository and production target
 
-This storefront must live in its own MSPixelPulseAgency GitHub repository. Confirm the remote and active branch before edits. Never deploy from a nearby empty or unrelated repository.
+- Local source: `/Users/mahak/Documents/Yemi Hair Affordables`
+- GitHub: `https://github.com/MSPixelPulseAgency/mspixelpulse-demo-yemi-hair-affordables`
+- Production branch: `main`
+- Vercel project: `yemi-hair`
+- Canonical production URL: `https://yemi-hair.vercel.app`
+
+Confirm the remote and branch before every change. Never deploy from a nearby empty or unrelated repository, and never touch `Oyemahak/Katrina-Studios`.
 
 ## Build settings
 
@@ -13,28 +19,35 @@ This storefront must live in its own MSPixelPulseAgency GitHub repository. Confi
 - Output: `dist`
 - Root: `./`
 
-`vercel.json` contains the SPA rewrite required for direct route refresh.
+`vercel.json` contains the SPA rewrite required for direct refreshes of product, collection and blog article routes.
 
 ## Environment
 
-Configure only confirmed values:
+Configure only confirmed public values:
 
 - `VITE_SITE_URL`
-- `VITE_ORDER_EMAIL_ENDPOINT`
+- `VITE_BUSINESS_EMAIL`
+- `VITE_BUSINESS_PHONE`
 - `VITE_WHATSAPP_NUMBER`
+- `VITE_INSTAGRAM_URL`
+- `VITE_TIKTOK_URL`
+- `VITE_FACEBOOK_URL`
+- `VITE_ORDER_EMAIL_ENDPOINT`
 - `VITE_ENABLE_EMAIL_ORDERS`
 - `VITE_ENABLE_WHATSAPP_ORDERS`
 
-Never commit secrets.
+Never commit secrets. Unconfirmed contact/social values must remain empty.
 
 ## Deployment process
 
 1. Pull latest and inspect status.
-2. Run `npm install`.
+2. Run `npm install` when dependencies changed or are missing.
 3. Run `npm run check`.
-4. Search for stale preview language, old domains and unrelated brand references.
-5. Commit a small clean change and push `main`.
-6. Deploy production to Vercel.
-7. Verify deployment logs, the public alias, core routes and an HTTP `200`.
+4. Search for stale preview language, old domains, invented metrics and unrelated brands.
+5. Browser-test the desktop navigation, mobile menu, currency switch, logo, blog routes, forms and horizontal overflow.
+6. Commit a small clean change and push `main`.
+7. Deploy production to Vercel.
+8. Assign the canonical `yemi-hair.vercel.app` alias to the new deployment when required.
+9. Verify deployment logs, the alias, core routes, blog routes and HTTP `200`.
 
-Do not treat a Vercel “Ready” label alone as final verification. Return the GitHub URL, Vercel production URL, build status and commit SHA.
+Do not treat Vercel “Ready” alone as sufficient. Retired legacy aliases must stay removed. Return the GitHub URL, canonical Vercel URL, build status, commit SHA, pages and notable features.

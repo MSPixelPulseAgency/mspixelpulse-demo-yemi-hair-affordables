@@ -1,34 +1,62 @@
 # Website Builder Agent
 
-## Scope
+## Mission
 
-Maintain the live React/Vite storefront for **Yemi Hair Affordables**, owned by **Rosaline**. It must remain a custom pink-and-white beauty experience rather than a generic template.
+Maintain the live React/Vite storefront for **Yemi Hair Affordables**, selected with care by **Rosaline**. The experience serves shoppers in Nigeria, Canada and selected international locations. It must remain a custom editorial beauty storefront—not a generic template.
 
-## Brand and configuration
+## Confirmed brand system
 
-- Business: Yemi Hair Affordables
-- Owner: Rosaline
-- Service context: Canada, Nigeria and selected international locations
-- Default currency: NGN, with a persistent CAD option
-- Contact, social and WhatsApp details stay hidden until confirmed environment values are supplied
+- Canonical URL: `https://yemi-hair.vercel.app`
+- Original female-profile logo: `public/yemi-hair-logo.svg`
+- Favicon: `public/favicon.svg`
+- Palette: editorial black, white, blush and berry pink
+- Typography: Outfit for headings and DM Sans for body copy
+- Visual language: restrained liquid glass, rounded editorial imagery, small readable headings and subtle 150–300ms interactions
+- Default currency: NGN, with a persistent optional CAD view
+- Contact, social and WhatsApp details remain hidden until Rosaline supplies confirmed values
 
-Read all business details from `src/config/business.js`. Do not scatter contact values through components.
+Use the logo through the shared `Brand` component in `src/components/Layout.jsx`. Do not replace it with an emoji, rasterize it unnecessarily or introduce copyrighted brand marks.
+
+## Navigation and responsive behaviour
+
+- Desktop widths show the full text navigation: Home, Shop, Collections, Custom Order, Hair Guide and Blog.
+- Tablet/mobile widths use the hamburger drawer with Lucide icons for every route.
+- The header is transparent/glassy but is **not sticky** and must scroll away naturally.
+- The secondary mobile currency control appears only on shopping routes.
+- All controls must remain at least 44px, keyboard accessible and visible at 320px without horizontal overflow.
 
 ## Architecture
 
-- Routes live in `src/App.jsx`.
-- Shared layout and drawers live in `src/components/Layout.jsx`.
-- Products, collections, reviews and FAQs live in `src/data/`.
-- Currency and persistent cart state live in `src/context/StoreContext.jsx`.
-- Pages live in `src/pages/`.
-- Global tokens and responsive rules live in `src/index.css`.
+- Routes: `src/App.jsx`
+- Header, drawers, footer and shared brand: `src/components/Layout.jsx`
+- Products, collections, reviews, FAQs and blog posts: `src/data/`
+- Business/environment configuration: `src/config/business.js`
+- Currency, cart and wishlist persistence: `src/context/StoreContext.jsx`
+- Page components: `src/pages/`
+- Global tokens and responsive rules: `src/index.css`
+- SEO helper: `src/components/Seo.jsx`
 
-Preserve route splitting, Vercel rewrites, mobile touch targets, keyboard focus, focus trapping, Escape-to-close and reduced-motion support.
+Preserve lazy route loading, Vercel SPA rewrites, focus trapping, Escape-to-close, visible focus states and reduced-motion/reduced-transparency fallbacks.
 
-## What not to edit
+## Current pages
 
-Do not edit another repository, invent client details, make unsupported claims, collect payment details, or replace central data with hardcoded component content. Do not touch `Oyemahak/Katrina-Studios`.
+- Home with video-led hero, catalogue proof strip, inspiration videos, catalogue sections and custom-order CTA
+- Shop, product details and collection routes
+- Custom-order wizard
+- Cart, checkout and local order-success summary
+- About, Hair Guide, FAQ, Contact and policy pages
+- The Hair Edit at `/blog`
+- Individual researched guides at `/blog/:slug`
+- Custom 404
+
+## Honest metrics
+
+The homepage proof strip is derived from confirmed site facts: 18 catalogue styles, 8 displayed collections, 2 display currencies and 1:1 custom-order guidance. Never replace these with invented customer, order, review, award or satisfaction counts. If Rosaline later provides a verified metric, record its source before publishing it.
+
+## Do not edit
+
+Do not edit another repository or `Oyemahak/Katrina-Studios`. Do not hardcode business details outside the central configuration, add unsupported shipping/payment promises, collect raw card data, restore an old Vercel domain or remove accessibility behaviour.
 
 ## Required checks
 
-Run `npm run check`, test 320/375/768/1024/1440 widths, verify direct route refresh, and check cart/currency persistence before push. Deploy with Node 22, Vite, `npm run build`, and `dist`.
+Run `npm run check`, inspect 320/375/768/1024/1180/1440 widths, confirm the desktop/mobile navigation switch, test direct blog and product route refreshes, and verify cart/currency persistence. Deploy with Node 22, Vite, `npm run build` and `dist`.

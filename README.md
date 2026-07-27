@@ -1,6 +1,6 @@
 # Yemi Hair Affordables
 
-A polished, responsive ecommerce catalogue for Yemi Hair Affordables. The site presents wigs and human-hair styles for customers in Nigeria, Canada and selected international locations, with NGN shown by default and an optional CAD view.
+A polished, responsive ecommerce catalogue and editorial hair guide for Yemi Hair Affordables. The site presents wigs and human-hair styles for customers in Nigeria, Canada and selected international locations, with NGN shown by default and an optional CAD view.
 
 ## Tech stack
 
@@ -41,6 +41,8 @@ The production output is written to `dist/`.
 - `/custom-order` — six-step custom request
 - `/cart`, `/checkout`, `/order-success`
 - `/about`, `/hair-guide`, `/faq`, `/contact`
+- `/blog` — The Hair Edit article index
+- `/blog/:slug` — researched Nigeria/Canada trend and care articles
 - `/privacy`, `/terms`, `/shipping-returns`
 - custom catch-all 404
 
@@ -75,6 +77,25 @@ Edit `src/data/products.js`.
 - Keep at least two image paths for card crossfades.
 - Update category and collection slugs carefully because routes depend on them.
 - Confirm availability, processing times and product claims with Rosaline.
+
+## Updating The Hair Edit
+
+Edit `src/data/blogPosts.js`.
+
+- Keep slugs and meta descriptions unique.
+- Use an ISO publication date, descriptive local image/alt text and useful internal links.
+- Research time-sensitive trend claims before revising them.
+- Write original summaries and retain direct source links.
+- Never invent customer counts, satisfaction rates or medical claims.
+
+## Brand assets and navigation
+
+The original female-profile SVG mark lives at `public/yemi-hair-logo.svg` and the related favicon at `public/favicon.svg`.
+
+- Desktop uses the full text navigation.
+- Tablet and mobile use an icon-led drawer.
+- The glass header is intentionally non-sticky.
+- The mobile currency bar only appears on shopping-related routes.
 
 ## Updating business details
 
@@ -121,4 +142,4 @@ Keep `VITE_SITE_URL`, `public/robots.txt` and `public/sitemap.xml` aligned with 
 
 ## Maintenance
 
-Read `.ai-agents/` before AI-assisted edits. Preserve the centralized data/config architecture, accessibility behaviour, honest order-summary flow, SPA rewrite and responsive design system.
+Read all five files in `.ai-agents/` before AI-assisted edits. Preserve the centralized data/config architecture, accessibility behaviour, honest order-summary flow, blog sourcing, retired-domain rule, SPA rewrite and responsive design system.

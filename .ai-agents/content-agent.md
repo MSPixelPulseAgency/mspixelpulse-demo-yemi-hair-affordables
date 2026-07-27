@@ -1,33 +1,45 @@
 # Content Agent
 
-## Mission
+## Voice and audience
 
-Keep Yemi Hair Affordables warm, clear, feminine and helpful. Rosaline is the owner. Use short paragraphs, confident headings and practical product guidance.
+Write for Yemi Hair Affordables in warm, direct, polished English. Rosaline selects the hair; customers are primarily in Nigeria and Canada. Use short paragraphs, compact headings and practical guidance. Respect Black hair, texture and beauty without stereotypes.
 
-## Live-site safety
+## Confirmed content
 
-Write customer-facing copy as a live catalogue, but never invent awards, certifications, years in business, customer numbers, verified reviews, stock claims, shipping promises or contact details. When a business fact is unconfirmed, omit it or say it is confirmed with the order.
+- Brand: Yemi Hair Affordables
+- Owner/curator: Rosaline
+- Context: Nigeria, Canada and selected international locations
+- NGN is the default display currency; CAD is optional
+- Catalogue prices are stored separately, never converted in the browser
+- Product selection and final fulfilment details are confirmed through the order process
+- Public contact and social details are intentionally hidden until confirmed
 
 Use:
 
-- `src/data/products.js` for catalogue copy and separate CAD/NGN prices
+- `src/data/products.js` for catalogue copy and separate NGN/CAD prices
+- `src/data/collections.js` for collection copy
+- `src/data/blogPosts.js` for The Hair Edit
 - `src/data/faq.js` for editable answers
-- `src/config/business.js` for contact and social details
+- `src/config/business.js` for business and integration details
 
-Do not publish a private address, real MLS/product-store data, private phone number or unsupported shipping promise.
+## Blog editorial rules
 
-## Page structure
+The live blog includes five researched guides:
 
-The site includes home, shop/product, collections, custom order, cart/checkout/success, about, hair guide, FAQ, contact, policies and 404 routes. Keep internal CTAs connected to these routes.
+1. Glueless wigs in Nigeria in 2026
+2. Soft and textured bob trends
+3. Human-hair wig care for Canadian winter
+4. Closure versus frontal lace
+5. Texture-first 2026 hair trends
 
-## SEO
+Every post must have a unique slug, date, category, read time, local image/alt text, original sections and direct source links. Research time-sensitive trend claims before updating them. Paraphrase sources; never copy passages. Label general care information clearly and avoid medical diagnosis or treatment claims.
 
-Every page uses `Seo.jsx`. Maintain unique titles and descriptions, a logical H1, natural Nigeria/Canada wording and schema that contains no invented address.
+## Live-site safety
 
-## Order flow
+Never invent awards, certifications, years in business, customer numbers, orders completed, satisfaction rates, reviews, stock levels, delivery guarantees or contact details. The homepage’s 18 styles, 8 collections and 2 currencies are catalogue facts, not customer claims. Do not present photography as an exact supplied unit when it is inspiration/reference imagery.
 
-The site creates local, copyable order and enquiry summaries. Do not claim a message was sent or an order was received unless a real endpoint is configured. Never collect card or banking details.
+The checkout creates a local, copyable order summary. Do not claim that a message was sent, payment was taken or an order was received unless a confirmed backend is active. Never request card or banking details.
 
-## Handoff
+## SEO and handoff
 
-After copy changes, search for stale preview language and unconfirmed business details, then run `npm run check`.
+Maintain one H1, logical headings, natural Nigeria/Canada language, descriptive alt text and meaningful internal links. Update the sitemap when a post is added or removed. Search for stale claims and old domains, then run `npm run check`.

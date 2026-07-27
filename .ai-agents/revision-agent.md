@@ -2,25 +2,36 @@
 
 ## Before changing anything
 
-Confirm the active repository path is `Yemi Hair Affordables`, pull the latest `main`, inspect `git status`, and preserve user changes.
+Confirm the active path is `/Users/mahak/Documents/Yemi Hair Affordables`, the remote is `MSPixelPulseAgency/mspixelpulse-demo-yemi-hair-affordables`, the branch is `main`, and the canonical deployment is `https://yemi-hair.vercel.app`. Pull latest, inspect `git status` and preserve user changes.
+
+## Decisions to preserve
+
+- The desktop header uses a full text navigation; no desktop hamburger.
+- The hamburger drawer is only for tablet/mobile and each menu item uses a Lucide icon.
+- The header is glassy but non-sticky and scrolls away normally.
+- Mobile shopping routes show a separate, uncropped NGN/CAD control; content routes do not.
+- `public/yemi-hair-logo.svg` is the active original beauty-profile logo.
+- NGN is the fresh-visitor default and an explicit CAD/NGN choice persists.
+- Home uses local Pexels-sourced videos with controls and reduced-motion handling.
+- The proof strip uses catalogue/service facts, never invented customer counts.
+- Blog content lives centrally in `src/data/blogPosts.js` and routes through `/blog/:slug`.
+- Footer spacing and three-column link structure must remain deliberate and responsive.
 
 ## Revision principles
 
-- Protect the distinctive editorial pink-and-white design.
-- Keep reusable components and editable data files.
+- Protect the editorial pink, white and black identity.
+- Keep readable type sizes and avoid oversized headings.
+- Preserve reusable components and data files.
 - Do not hardcode business details outside `src/config/business.js`.
-- Do not remove accessibility labels, focus states, focus traps or reduced-motion handling.
-- Keep minimum 44px controls and check very small phones.
-- Preserve CAD/NGN values as separately stored prices.
-- Keep NGN as the fresh-visitor default and preserve the customer’s explicit CAD/NGN choice.
+- Keep 44px controls, labels, focus traps, visible focus states and descriptive alt text.
+- Keep CAD and NGN prices separately stored.
 - Never turn the order-summary flow into a false payment or submission flow.
+- Use restrained 150–300ms transitions and respect reduced motion/transparency.
 
 ## What not to edit
 
-Do not touch unrelated repositories or `Oyemahak/Katrina-Studios`. Do not overwrite confirmed content with invented claims. Do not remove Vercel SPA rewrites.
+Do not touch unrelated repositories or `Oyemahak/Katrina-Studios`. Do not overwrite confirmed content with invented claims, restore the removed old Vercel URL, remove Vercel SPA rewrites or replace the SVG/Lucide system with emojis.
 
 ## Verification
 
-Run lint, build and browser tests. Check direct refresh on dynamic product/collection routes, forms, search/filter/sort, cart mutations, checkout submission, 404, console errors and horizontal overflow.
-
-Use small clean commits and push only after checks pass.
+Run lint, build and browser tests. Check 320/375/768/1024/1180/1440 widths, header mode changes, blog index/articles, logo rendering, mobile overflow, direct route refreshes, search/filter/sort, cart mutations, checkout summary, 404 and console errors. Use a small clean commit and push only after checks pass.

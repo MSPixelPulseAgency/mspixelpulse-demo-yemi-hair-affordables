@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mspixelpulse-demo-yemi-hair-affordables.vercel.app/sitemap.xml

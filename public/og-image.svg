@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#fff1f6"/><stop offset="1" stop-color="#efbdd1"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="980" cy="70" r="240" fill="#d94f87" opacity=".15"/>
+  <circle cx="1040" cy="560" r="300" fill="#fff" opacity=".5"/>
+  <text x="90" y="250" font-family="Georgia,serif" font-size="102" fill="#231f20">Yemi Hair</text>
+  <text x="96" y="330" font-family="Arial,sans-serif" font-size="38" letter-spacing="12" fill="#b9366c">AFFORDABLES</text>
+  <text x="96" y="430" font-family="Arial,sans-serif" font-size="34" fill="#5f5158">Beautiful hair. Fair prices.</text>
+</svg>

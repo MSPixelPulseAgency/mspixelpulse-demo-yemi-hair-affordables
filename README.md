@@ -143,3 +143,12 @@ Keep `VITE_SITE_URL`, `public/robots.txt` and `public/sitemap.xml` aligned with 
 ## Maintenance
 
 Read all five files in `.ai-agents/` before AI-assisted edits. Preserve the centralized data/config architecture, accessibility behaviour, honest order-summary flow, blog sourcing, retired-domain rule, SPA rewrite and responsive design system.
+
+## Website and demo management
+
+- **Live Website:** [https://salon.mspixelpulse.com](https://salon.mspixelpulse.com)
+- **Original Vercel URL (fallback):** [https://yemi-hair.vercel.app](https://yemi-hair.vercel.app)
+- **MSPixelPulse Projects:** [MSPixelPulse Projects](https://mspixelpulse.com/projects)
+- **Aurelion Demo Library:** [Private Demo Management — Owner Access Required](https://mahakpatel.com/play/ai?view=demo-library)
+
+The category subdomain is the primary public demo link; the original Vercel address stays available as a fallback. The Aurelion link is an owner-only management interface and does not grant access.
